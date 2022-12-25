@@ -1,5 +1,2 @@
-build.sh
-compile.sh
-run.sh
-runtests.sh
+scripts
 build
