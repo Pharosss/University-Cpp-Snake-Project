@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include <ncurses.h>
+#include <stdexcept>
 
 void Renderer::initialize() {
     initscr();
@@ -21,12 +22,16 @@ void Renderer::clear_screen() {
 }
 
 void Renderer::move_cursor(unsigned int x, unsigned int y) {
+    unsigned int w, h;
+    getmaxyx(stdscr, h, w);
+    if (x >= w || y >= h)
+        throw std::runtime_error("Cursor out of bounds!");
     move(y, x);
 }
 void Renderer::move_relative(int x, int y) {
     int currx, curry;
     getyx(stdscr, curry, currx);
-    move(curry + y, currx + x);
+    move_cursor(currx + x, curry + y);
 }
 
 void Renderer::write(char ch) {
