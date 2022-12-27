@@ -5,9 +5,11 @@
 #ifndef UNIVERSITY_CPP_SNAKE_PROJECT_HEAD_H
 #define UNIVERSITY_CPP_SNAKE_PROJECT_HEAD_H
 #include "Body.h"
+#include "Renderer.h"
+#include <memory>
 //#include "Game.h"
 class Game;
-typedef std::shares_ptr<Game> GamePtr
+typedef std::shared_ptr<Game> GamePtr;
 
 class Head : public Entity {
     //std::shared_ptr<Game> game;

@@ -1,7 +1,12 @@
 //
 // Created by gosia on 26/12/2022.
 //
-
+#include <vector>
+#include <memory>
+#include "Board.h"
+#include "Entity.h"
+#include "Food.h"
+#include "Renderer.h"
 #ifndef UNIVERSITY_CPP_SNAKE_PROJECT_GAME_H
 #define UNIVERSITY_CPP_SNAKE_PROJECT_GAME_H
 class Game {
@@ -17,7 +22,7 @@ class Game {
 
 public:
     Game(unsigned int w, unsigned int h, float s);
-    init_game();    //place snake and food etc.
+    void init_game();    //place snake and food etc.
 
     // speed
     float get_speed();

@@ -13,7 +13,7 @@ public:
     virtual void update() = 0;
     virtual void render(Renderer& renderer) = 0;
 
-    bool is_food();
+    virtual bool is_food();
 
     void move(unsigned int x, unsigned int y);
     unsigned int get_x();
