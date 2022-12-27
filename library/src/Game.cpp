@@ -14,13 +14,7 @@ Game::Game(Board b, State s)
  : board(b), state(s) {}
 
 void Game::init_game() {
-    auto f1 = std::make_shared<Food>(0,0);
-    auto f2 = std::make_shared<Head>(1,0, this);
-    auto f3 = std::make_shared<Body>(2,0);
-
-    attach_entity(f1);
-    attach_entity(f2);
-    attach_entity(f3);
+    // place initialization here
 }
 
 
