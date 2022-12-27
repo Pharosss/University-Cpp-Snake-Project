@@ -6,6 +6,9 @@ void renderer_demo() {
     r.initialize();
 
     r.write("Hello Ncurses!");
+    r.write(" Screen dimensions: ");
+    std::string dims = std::to_string(r.get_width()) + " x " + std::to_string(r.get_height());
+    r.write(dims);
     r.move_cursor(0, 2);
     r.write("You can move to a discrete location");
     r.move_relative(-1, 2);
