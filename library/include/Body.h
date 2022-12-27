@@ -1,10 +1,7 @@
-//
-// Created by gosia on 26/12/2022.
-//
-
-#ifndef UNIVERSITY_CPP_SNAKE_PROJECT_BODY_H
-#define UNIVERSITY_CPP_SNAKE_PROJECT_BODY_H
+#pragma once
+#include <memory>
 #include "Entity.h"
+
 class Body : public Entity {
     std::shared_ptr<Body> next;
 public:
@@ -20,4 +17,3 @@ public:
     std::shared_ptr<Body>get_tail_recursive();
     void move_recursive(unsigned int x, unsigned int y);
 };
-#endif //UNIVERSITY_CPP_SNAKE_PROJECT_BODY_H

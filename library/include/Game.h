@@ -1,14 +1,14 @@
-//
-// Created by gosia on 26/12/2022.
-//
+#pragma once
+
 #include <vector>
 #include <memory>
-#include "Board.h"
+
 #include "Entity.h"
+#include "Board.h"
 #include "Food.h"
-#include "Renderer.h"
-#ifndef UNIVERSITY_CPP_SNAKE_PROJECT_GAME_H
-#define UNIVERSITY_CPP_SNAKE_PROJECT_GAME_H
+
+class Renderer;
+
 class Game {
     Board board;
     std::vector<std::shared_ptr<Entity>> entities;
@@ -54,4 +54,3 @@ public:
     void attach_entity(std::shared_ptr<Entity> entity);
     void detach_entity(std::shared_ptr<Entity> entity);
 };
-#endif //UNIVERSITY_CPP_SNAKE_PROJECT_GAME_H

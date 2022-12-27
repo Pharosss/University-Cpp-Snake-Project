@@ -1,10 +1,6 @@
-//
-// Created by gosia on 26/12/2022.
-//
-
-#ifndef UNIVERSITY_CPP_SNAKE_PROJECT_FOOD_H
-#define UNIVERSITY_CPP_SNAKE_PROJECT_FOOD_H
+#pragma once
 #include "Entity.h"
+
 class Food : public Entity {
 public:
     Food(unsigned x, unsigned y);
@@ -13,4 +9,3 @@ public:
 
     bool is_food() override;
 };
-#endif //UNIVERSITY_CPP_SNAKE_PROJECT_FOOD_H
