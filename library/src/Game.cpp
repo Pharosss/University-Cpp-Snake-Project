@@ -1,54 +1,70 @@
-//
-// Created by gosia on 26/12/2022.
-//
 #include "Game.h"
+
 #include <iostream>
-Game::Game(unsigned int w, unsigned int h, float s){
-    //tu w i h zainicjalizować
-    speed_seconds=s;
+#include <algorithm>
+
+#include "Entity.h"
+#include "Food.h"
+
+Game::Game(Board b, State s)
+ : board(b), state(s) {}
+
+void Game::init_game() {
+    // place initialization here
 }
 
-float Game::get_speed()
-{
-    return speed_seconds;
+
+// Update and Render
+
+void Game::update() {
+    // place update here
+}
+void Game::render(Renderer& renderer) {
+    // place render here
 }
 
-int Game::get_score()
-{
-    return score;
+
+//Entity List
+
+void Game::attach_entity(std::shared_ptr<Entity> entity) {
+    auto iter = std::find(entities.begin(), entities.end(), entity);
+    if (iter != entities.end())
+        throw std::runtime_error("Attempted to attach an entity twice!");
+    
+    entities.push_back(entity);
+}
+void Game::detach_entity(std::shared_ptr<Entity> entity) {
+    auto iter = std::find(entities.begin(), entities.end(), entity);
+    if (iter == entities.end())
+        throw std::runtime_error("Attempted to detach a detached entity!");
+
+    entities.erase(iter);
 }
 
-bool Game::increment_score()
-{
-    //if()
-    //get_score()++;
-    return false;
+
+// Food
+
+void Game::spawn_food() {
+    // get random empty location
+    // auto f = std::make_shared(Food(x, y));
+    // attach(f);
+}
+std::shared_ptr<Entity> Game::find_food_at(unsigned int x, unsigned int y) {
+    auto is_food_predicate = [](std::shared_ptr<Entity> ptr){ return ptr->is_food(); };
+    auto iter = std::find_if(entities.begin(), entities.end(), is_food_predicate);
+
+    if (iter == entities.end())
+        return nullptr;
+
+    return *iter;
 }
 
-bool Game::is_finished()
-{
-    return is_finished;
-}
 
-void Game::end_game()
-{
-    if(is_finished){//tu chyba coś dodać trzeba
-        std::cout << "The game is over. You got "<< get_score()<< " scores.\n"; 
-        exit(0);
-    }
-}
+// Getters and Setters
 
-bool Game::is_paused()
-{
-    return is_paused;
+Board& Game::get_board() {
+    return board;
 }
-
-void Game::set_pause(bool paused)//tu nie wiem
-{
-    if(is_paused())
-    paused=true;
-    else {
-        paused=false;
-        should_move()==false;
-    }
+State& Game::get_state() {
+    return state;
 }
