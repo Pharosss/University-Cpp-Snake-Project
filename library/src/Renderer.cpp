@@ -25,6 +25,17 @@ unsigned int Renderer::get_height() {
     return h;
 }
 
+unsigned int Renderer::get_x() {
+    int currx, curry;
+    getyx(stdscr, curry, currx);
+    return currx;
+};
+unsigned int Renderer::get_y() {
+    int currx, curry;
+    getyx(stdscr, curry, currx);
+    return curry;
+};
+
 void Renderer::refresh_screen() {
     refresh();
 }
