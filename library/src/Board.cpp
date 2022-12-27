@@ -26,3 +26,10 @@ void Board::render(Renderer& r) {
         r.write('#');
     }    
 }
+
+unsigned int Board::get_width() {
+    return width;
+};
+unsigned int Board::get_height() {
+    return height;
+};
