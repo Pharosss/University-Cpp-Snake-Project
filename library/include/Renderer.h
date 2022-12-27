@@ -6,6 +6,9 @@ public:
     void initialize();
     void terminate();
 
+    unsigned int get_width();
+    unsigned int get_height();
+
     void refresh_screen();
     void clear_screen();
 
@@ -14,4 +17,5 @@ public:
 
     void write(char ch);
     void write(const char* str);
+    void write(std::string& str);
 };
