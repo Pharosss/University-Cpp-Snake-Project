@@ -11,6 +11,6 @@ class Head : public Entity {
 public:
     Head(unsigned int x, unsigned int y, std::shared_ptr<Game> g);
 
-    void update();
-    void render(Renderer& renderer);
+    void update() override;
+    void render(Renderer& renderer) override;
 };
