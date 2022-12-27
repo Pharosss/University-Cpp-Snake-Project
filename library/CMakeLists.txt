@@ -10,12 +10,14 @@ set(SOURCE_FILES
     include/Food.h
     include/Game.h
     include/Head.h
+    include/State.h
     src/Board.cpp
     src/Body.cpp
     src/Entity.cpp
     src/Food.cpp
     src/Game.cpp
     src/Head.cpp
+    src/State.cpp
 )
 
 add_library(Library ${SOURCE_FILES})
