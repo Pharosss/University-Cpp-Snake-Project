@@ -5,12 +5,22 @@
 
 #include "Entity.h"
 #include "Food.h"
+#include "Renderer.h"
+
+#include "Head.h"
+#include "Body.h"
 
 Game::Game(Board b, State s)
  : board(b), state(s) {}
 
 void Game::init_game() {
-    // place initialization here
+    auto f1 = std::make_shared<Food>(0,0);
+    auto f2 = std::make_shared<Head>(1,0, this);
+    auto f3 = std::make_shared<Body>(2,0);
+
+    attach_entity(f1);
+    attach_entity(f2);
+    attach_entity(f3);
 }
 
 
@@ -19,8 +29,15 @@ void Game::init_game() {
 void Game::update() {
     // place update here
 }
-void Game::render(Renderer& renderer) {
-    // place render here
+void Game::render(Renderer& r) {
+    r.clear_screen();
+    board.render(r);
+
+    for(auto entity : entities) {
+        r.move_cursor(entity->get_x() + 1, entity->get_y() + 1);
+        entity->render(r);
+    }
+    r.refresh_screen();
 }
 
 

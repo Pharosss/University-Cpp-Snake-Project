@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Game.h"
 #include "Renderer.h"
 
 void renderer_demo() {
@@ -31,5 +32,16 @@ void renderer_demo() {
 }
 
 int main() {
-    
+    Board b(4, 4);
+    Game g(b, State());
+    g.init_game();
+
+    Renderer r;
+    r.initialize();
+
+    g.render(r);
+
+    getchar();
+
+    r.terminate();
 }
