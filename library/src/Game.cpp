@@ -1,7 +1,8 @@
 #include "Game.h"
 
-#include <iostream>
 #include <algorithm>
+#include <string>
+#include <sstream>
 
 #include "Entity.h"
 #include "Food.h"
@@ -25,10 +26,18 @@ void Game::update() {
 }
 void Game::render(Renderer& r) {
     r.clear_screen();
+
+    std::stringstream header;
+    header << "Score: " << std::to_string(state.get_score());
+    std::string out = header.str();
+    r.write(out);
+
+    r.move_cursor(0,2);
+    unsigned int frame_x = r.get_x() + 1, frame_y = r.get_y() + 1;
     board.render(r);
 
     for(auto entity : entities) {
-        r.move_cursor(entity->get_x() + 1, entity->get_y() + 1);
+        r.move_cursor(frame_x + entity->get_x(), frame_y + entity->get_y());
         entity->render(r);
     }
     r.refresh_screen();
