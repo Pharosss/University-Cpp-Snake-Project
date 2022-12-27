@@ -4,6 +4,20 @@ project(Library)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
+    include/Board.h
+    include/Body.h
+    include/Entity.h
+    include/Food.h
+    include/Game.h
+    include/Head.h
+    include/State.h
+    src/Board.cpp
+    src/Body.cpp
+    src/Entity.cpp
+    src/Food.cpp
+    src/Game.cpp
+    src/Head.cpp
+    src/State.cpp
     include/Renderer.h
     src/Renderer.cpp
 )
