@@ -31,10 +31,13 @@ void Game::render(Renderer& r) {
     header << "Score: " << std::to_string(state.get_score());
     std::string out = header.str();
     
-    r.move_cursor((r.get_width() - board.get_width())/2 - 1, (r.get_height() - board.get_height() - 2)/2 - 1);
+    auto corner_x = (r.get_width() - board.get_width())/2 - 1;
+    auto corner_y = (r.get_height() - board.get_height() - 2)/2 - 1;
+
+    r.move_cursor(corner_x, corner_y);
     r.write(out);
 
-    r.move_relative(-out.size(), 2);
+    r.move_cursor(corner_x, corner_y + 2);
     unsigned int inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
     board.render(r);
 
