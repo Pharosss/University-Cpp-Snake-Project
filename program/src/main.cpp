@@ -1,4 +1,3 @@
-#include <iostream>
 #include <thread>
 #include "Game.h"
 #include "Renderer.h"
@@ -37,12 +36,22 @@ int main() {
     Game g(b, State());
     g.init_game();
 
+    auto moo = [](Game* g){
+        while (!(g->get_state().is_finished())) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1));
+            g->get_state().increment_score();
+            if(g->get_state().get_score() == 1000)
+                g->get_state().finish_game();
+        }
+    };
+    std::thread score_thread(moo, &g);
+    score_thread.detach();
+
     Renderer r;
     r.initialize();
-
-    g.render(r);
-
-    getchar();
+    while(!(g.get_state().is_finished())) {
+        g.render(r);
+    }
 
     r.terminate();
 }
