@@ -40,7 +40,7 @@ void Renderer::refresh_screen() {
     refresh();
 }
 void Renderer::clear_screen() {
-    clear();
+    erase();
 }
 
 void Renderer::move_cursor(unsigned int x, unsigned int y) {
