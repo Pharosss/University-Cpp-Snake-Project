@@ -21,5 +21,3 @@ sudo apt-get install libboost-all-dev
 * Prevent crashing after resizing terminal
 
 * Repair crashing when started with maximum size board
-
-* Prevent flickering in high refresh rate
