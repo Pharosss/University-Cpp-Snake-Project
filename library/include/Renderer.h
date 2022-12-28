@@ -9,6 +9,9 @@ public:
     unsigned int get_width();
     unsigned int get_height();
 
+    unsigned int get_x();
+    unsigned int get_y();
+
     void refresh_screen();
     void clear_screen();
 

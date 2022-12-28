@@ -1,10 +1,15 @@
 #include "Game.h"
 
-#include <iostream>
 #include <algorithm>
+#include <string>
+#include <sstream>
 
 #include "Entity.h"
 #include "Food.h"
+#include "Renderer.h"
+
+#include "Head.h"
+#include "Body.h"
 
 Game::Game(Board b, State s)
  : board(b), state(s) {}
@@ -19,8 +24,25 @@ void Game::init_game() {
 void Game::update() {
     // place update here
 }
-void Game::render(Renderer& renderer) {
-    // place render here
+void Game::render(Renderer& r) {
+    r.clear_screen();
+
+    std::stringstream header;
+    header << "Score: " << std::to_string(state.get_score());
+    std::string out = header.str();
+    
+    r.move_cursor((r.get_width() - board.get_width())/2 - 1, (r.get_height() - board.get_height() - 2)/2 - 1);
+    r.write(out);
+
+    r.move_relative(-out.size(), 2);
+    unsigned int inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
+    board.render(r);
+
+    for(auto entity : entities) {
+        r.move_cursor(inside_board_x + entity->get_x(), inside_board_y + entity->get_y());
+        entity->render(r);
+    }
+    r.refresh_screen();
 }
 
 

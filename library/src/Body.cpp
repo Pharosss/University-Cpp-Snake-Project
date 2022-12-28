@@ -1,4 +1,5 @@
 #include "Body.h"
+#include "Renderer.h"
 
 Body::Body(unsigned int x, unsigned int y)
     : Entity(x, y) {}
@@ -6,8 +7,8 @@ Body::Body(unsigned int x, unsigned int y)
 void Body::update() {
     // here place update
 };
-void Body::render(Renderer& renderer) {
-    // here place render
+void Body::render(Renderer& r) {
+    r.write('&');
 };
 
 

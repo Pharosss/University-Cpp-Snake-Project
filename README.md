@@ -15,3 +15,11 @@ Similarily, to install boost use:
 ```
 sudo apt-get install libboost-all-dev
 ```
+
+## TODO:
+
+* Prevent crashing after resizing terminal
+
+* Repair crashing when started with maximum size board
+
+* Prevent flickering in high refresh rate

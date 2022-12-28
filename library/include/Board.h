@@ -7,4 +7,7 @@ public:
     Board(unsigned int w, unsigned int h);
     bool is_position_valid(unsigned int x, unsigned int y);
     void render(Renderer& renderer);
+
+    unsigned int get_width();
+    unsigned int get_height();
 };
