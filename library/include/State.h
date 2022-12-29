@@ -8,6 +8,8 @@ class State {
     bool m_is_paused;
     bool m_should_move;   // is automatically set to true every 1 second. After the move it resets
 
+    int input;
+
 public:
     State();
 
@@ -25,4 +27,7 @@ public:
 
     bool should_move();
     void set_should_move(bool should);
+
+    int get_input();
+    void set_input(int in);
 };
