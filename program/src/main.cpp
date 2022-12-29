@@ -40,12 +40,10 @@ auto game_loop_f = [](Game* g, Renderer* r){
 
 auto input_f = [](State* s){
     while(!(s->is_finished())) {
-        int ch = getch();
-
-        if (ch == KEY_UP)
+        int ch = getchar();
+        s->set_input(ch);
+        if (ch == 27)   // ESCAPE
             s->finish_game();
-        if (ch == KEY_DOWN)
-            s->increment_score();
     }
 };
 
