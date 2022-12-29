@@ -28,7 +28,7 @@ void Game::render(Renderer& r) {
     r.clear_screen();
 
     std::stringstream header;
-    header << "Score: " << std::to_string(state.get_score());
+    header << "Score: " << std::to_string(state.get_score()) << "    Input: " << std::to_string(state.get_input());
     std::string out = header.str();
     
     auto corner_x = (r.get_width() - board.get_width())/2 - 1;
