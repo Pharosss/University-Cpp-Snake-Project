@@ -52,9 +52,9 @@ void State::set_should_move(bool should) {
 
 
 // input
-int State::get_input() {
+std::string& State::get_input() {
     return input;
 };
-void State::set_input(int in) {
+void State::set_input(std::string& in) {
     input = in;
 };
