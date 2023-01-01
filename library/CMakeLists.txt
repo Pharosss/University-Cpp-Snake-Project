@@ -10,6 +10,8 @@ set(SOURCE_FILES
     include/Food.h
     include/Game.h
     include/Head.h
+    include/InputManager.h
+    include/Renderer.h
     include/State.h
     src/Board.cpp
     src/Body.cpp
@@ -17,8 +19,8 @@ set(SOURCE_FILES
     src/Food.cpp
     src/Game.cpp
     src/Head.cpp
+    src/InputManager.cpp
     src/State.cpp
-    include/Renderer.h
     src/Renderer.cpp
 )
 add_library(Library ${SOURCE_FILES})
