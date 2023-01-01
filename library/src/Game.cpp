@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Food.h"
 #include "Renderer.h"
+#include "InputManager.h"
 
 #include "Head.h"
 #include "Body.h"
@@ -21,7 +22,7 @@ void Game::init_game() {
 
 // Update and Render
 
-void Game::update() {
+void Game::update(InputManager& input) {
     // place update here
 }
 void Game::render(Renderer& r) {

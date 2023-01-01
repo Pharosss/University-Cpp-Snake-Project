@@ -5,10 +5,12 @@
 
 #include "Board.h"
 #include "State.h"
+
 class Entity;
+class Food;
 
 class Renderer;
-class Food;
+class InputManager;
 
 class Game {
     Board board;
@@ -19,7 +21,7 @@ public:
     Game(Board b, State s);
     void init_game();    //place snake and food etc.
 
-    void update();
+    void update(InputManager& input);
     void render(Renderer& renderer);
 
     void attach_entity(std::shared_ptr<Entity> entity);

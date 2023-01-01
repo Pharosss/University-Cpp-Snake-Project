@@ -11,7 +11,7 @@ class Head : public Entity {
 public:
     Head(unsigned int x, unsigned int y, Game* g);
 
-    void update() override;
+    void update(InputManager& input) override;
     void render(Renderer& renderer) override;
 
     void attach(std::shared_ptr<Body>);
