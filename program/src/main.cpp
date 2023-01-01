@@ -1,7 +1,8 @@
-#include <thread>
 #include <chrono>
 #include "Game.h"
+
 #include "Renderer.h"
+#include "InputManager.h"
 
 void renderer_demo() {
     Renderer r;
@@ -32,74 +33,36 @@ void renderer_demo() {
     r.terminate();
 }
 
-std::vector<int> input_buffer;
-
-auto game_loop_f = [](Game* g, Renderer* r){
-    while (!(g->get_state().is_finished())) {
-        g->render(*r);
-    }
-};
-
-auto input_fetch_f = [](State* s) {
-    while(!(s->is_finished())) {
-        int ch = getchar();
-        input_buffer.push_back(ch);
-    }
-};
-
-auto input_process_f = [](State* s) {
-    while(!(s->is_finished())) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-        std::string str;
-        for (int i = 0; i < input_buffer.size() && i < 3; i++)
-            str += std::to_string(input_buffer[i]) + " ";
- 
-        if (str == "27 79 65 ") {
-            str = "UP";
-            s->increment_score();
-        }
-        else if (str == "27 79 66 ") {
-            str = "DOWN";
-            s->finish_game();
-        }
-        else if (str == "27 79 67 ") {
-            str = "RIGHT";
-        }      
-        else if (str == "27 79 68 ") {
-            str = "LEFT";
-        }
-        else if (str == "27 ") {
-            str = "ESCAPE";
-        }
-
-        s->set_input(str);
-        input_buffer.clear();
-    }
-};
-
 int main() {
-    Board b(30, 8);
-    Game g(b, State());
-    g.init_game();
 
-    Renderer r;
-    r.initialize();
+    // Renderer Init
+    Renderer renderer;
+    renderer.initialize();
 
-    std::thread game_loop_thread(game_loop_f, &g, &r);
-    std::thread input_fetch_thread(input_fetch_f, &(g.get_state()));
-    std::thread input_process_thread(input_process_f, &(g.get_state()));
+    // InputManager Init
+    InputManager input;
+    input.start_fetch_thread();
+    input.start_process_thread();
 
-    game_loop_thread.detach();
-    input_fetch_thread.detach();
-    input_process_thread.detach();
+    // Game Init
+    Board board(30, 8);
+    Game game(board, State());
+    game.init_game();
 
-    while (!(g.get_state().is_finished()));
+    // GAME LOOP
+
+    while (!(game.get_state().is_finished())) {
+        game.update(input);
+        game.render(renderer);
+    }
     
-    r.clear_screen();
-    r.refresh_screen();
+    // END GAME
+
+    input.stop_threads();
+    renderer.clear_screen();
+    renderer.refresh_screen();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
-    r.terminate();
+    renderer.terminate();
 }
