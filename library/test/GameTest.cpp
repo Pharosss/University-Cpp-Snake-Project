@@ -5,7 +5,7 @@
 BOOST_AUTO_TEST_SUITE(GameTest)
 
 BOOST_AUTO_TEST_CASE(Test_attach_entity__detach_entity) {
-    Game game;
+    Game game(Board(10, 10), State());
     //std::vector<std::shared_ptr<Entity>> entities;
     std::shared_ptr<Entity> entity;
     game.attach_entity(entity);
