@@ -4,24 +4,6 @@
 #include "InputManager.h"
 #include "Input.h"
 
-std::map<KeyCode, std::string> string_map = {
-    {K_NULL,    "Null"},
-    {K_UP,      "Up"},
-    {K_DOWN,    "Down"},
-    {K_RIGHT,   "Right"},
-    {K_LEFT,    "Left"},
-    {K_ENTER,   "Enter"},
-    {K_ESCAPE,  "Escape"}
-};
-
-std::string to_string(KeyCode c) {
-    try {
-        return string_map.at(c);
-    } catch (std::out_of_range e) {
-        return string_map.at(K_NULL);
-    }
-}
-
 void InputManager::notify_observers(KeyCode code) {
     for (auto obs : observers)
         obs->on_keepress(code);
@@ -35,25 +17,20 @@ void InputManager::erase_codes(unsigned int n) {
 }
 
 InputManager::InputManager()
-    : fetch(nullptr), process(nullptr), should_run(true), current_input(K_NULL) {}
+    : input_fetching_thread(nullptr), input_processing_thread(nullptr), should_run(true), current_input(K_NULL) {}
 
-    InputManager::~InputManager() {
-    while(!buffer_mutex.try_lock());
-    buffer_mutex.unlock();
-}
+// THREADS
 
 void InputManager::start_fetch_thread() {
     auto fetch_lambda = [](InputManager* i) {
         while(i->should_run) {
             int ch = getchar();
-            while(!i->buffer_mutex.try_lock());
             i->input_buffer.push_back(ch);
-            i->buffer_mutex.unlock();
         }
     };
 
-    fetch = std::make_shared<std::thread>(fetch_lambda, this);
-    fetch->detach();
+    input_fetching_thread = std::make_shared<std::thread>(fetch_lambda, this);
+    input_fetching_thread->detach();
 }
  
 void InputManager::start_process_thread() {
@@ -64,10 +41,7 @@ void InputManager::start_process_thread() {
             
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-            while (!i->buffer_mutex.try_lock());
             int size = i->input_buffer.size();
-            i->buffer_mutex.unlock();
-            
             if (size == 0) {
                 i->current_input = K_NULL;
                 continue;
@@ -75,9 +49,6 @@ void InputManager::start_process_thread() {
 
             // try to process multiple codes
             bool is_multiple = false;
-
-            while(!i->buffer_mutex.try_lock());
-
             if (size >= 3 || i->input_buffer[0] == 27 || i->input_buffer[1] == 91) {
                 is_multiple = true;
                 switch (i->input_buffer[2]) {
@@ -100,7 +71,6 @@ void InputManager::start_process_thread() {
                     }
                 }
             }
-            i->buffer_mutex.unlock();
 
             if (!is_multiple) { // process one code
                 switch (i->input_buffer[0]) {
@@ -119,9 +89,15 @@ void InputManager::start_process_thread() {
         } 
     };
 
-    process = std::make_shared<std::thread>(process_lambda, this);
-    process->detach();
+    input_processing_thread = std::make_shared<std::thread>(process_lambda, this);
+    input_processing_thread->detach();
 }
+
+void InputManager::stop_threads() {
+    should_run = false;
+}
+
+// OBSERVERS
 
 void InputManager::add_observer(InputObserver* obs) {
     observers.push_back(obs);
@@ -131,12 +107,4 @@ void InputManager::remove_observer(InputObserver* obs) {
     for (size_t i = 0; i < observers.size(); i++)
         if (observers[i] == obs)
             observers.erase(observers.begin() + i--);
-}
-
-void InputManager::stop_threads() {
-    should_run = false;
-}
-
-KeyCode InputManager::get_input() {
-    return current_input;
 }
