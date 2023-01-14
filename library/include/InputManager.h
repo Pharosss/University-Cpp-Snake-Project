@@ -4,24 +4,25 @@
 #include <memory>
 #include <mutex>
 
-enum KeyCode {
-    K_NULL, K_UP, K_DOWN, K_RIGHT, K_LEFT, K_ENTER, K_ESCAPE
-};
+enum KeyCode : char;
+class InputObserver;
 
 std::string to_string(KeyCode c);
 
 class InputManager { 
+    
     std::vector<int> input_buffer;
     KeyCode current_input;
-
+    
     std::mutex buffer_mutex;
     bool should_run;
 
     std::shared_ptr<std::thread> fetch;
     std::shared_ptr<std::thread> process;
 
-    //std::map<KeyCode, std::vector<std::lambda>> callbacks;
+    std::vector<InputObserver*> observers;
 
+    void notify_observers(KeyCode code);
     void erase_codes(unsigned int n);
 
 public:
@@ -33,7 +34,8 @@ public:
 
     void stop_threads();
 
-    void add_callback(KeyCode code);
+    void add_observer(InputObserver* obs);
+    void remove_observer(InputObserver* obs);
 
     KeyCode get_input();
 };

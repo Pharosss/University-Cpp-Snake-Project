@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 #include "InputManager.h"
-#include "Game.h"
+#include "Input.h"
 
 std::map<KeyCode, std::string> string_map = {
     {K_NULL,    "Null"},
@@ -22,6 +22,11 @@ std::string to_string(KeyCode c) {
     }
 }
 
+void InputManager::notify_observers(KeyCode code) {
+    for (auto obs : observers)
+        obs->on_keepress(code);
+}
+
 void InputManager::erase_codes(unsigned int n) {
     while (n > 0) {
         input_buffer.erase(input_buffer.begin());
@@ -30,9 +35,9 @@ void InputManager::erase_codes(unsigned int n) {
 }
 
 InputManager::InputManager()
-    : fetch(nullptr), process(nullptr), should_run(true) {}
+    : fetch(nullptr), process(nullptr), should_run(true), current_input(K_NULL) {}
 
-InputManager::~InputManager() {
+    InputManager::~InputManager() {
     while(!buffer_mutex.try_lock());
     buffer_mutex.unlock();
 }
@@ -49,17 +54,20 @@ void InputManager::start_fetch_thread() {
 
     fetch = std::make_shared<std::thread>(fetch_lambda, this);
     fetch->detach();
-};
-
+}
+ 
 void InputManager::start_process_thread() {
     auto process_lambda = [](InputManager* i) {
         while (i->should_run) {
+            if (i->current_input != K_NULL)
+                i->notify_observers(i->current_input);
+            
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
             while (!i->buffer_mutex.try_lock());
             int size = i->input_buffer.size();
             i->buffer_mutex.unlock();
-
+            
             if (size == 0) {
                 i->current_input = K_NULL;
                 continue;
@@ -113,7 +121,17 @@ void InputManager::start_process_thread() {
 
     process = std::make_shared<std::thread>(process_lambda, this);
     process->detach();
-};
+}
+
+void InputManager::add_observer(InputObserver* obs) {
+    observers.push_back(obs);
+}
+
+void InputManager::remove_observer(InputObserver* obs) {
+    for (size_t i = 0; i < observers.size(); i++)
+        if (observers[i] == obs)
+            observers.erase(observers.begin() + i--);
+}
 
 void InputManager::stop_threads() {
     should_run = false;
@@ -121,4 +139,4 @@ void InputManager::stop_threads() {
 
 KeyCode InputManager::get_input() {
     return current_input;
-};
+}
