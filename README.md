@@ -18,4 +18,4 @@ sudo apt-get install libboost-all-dev
 
 ## TODO:
 
-* Repair crashing when started with maximum size board
+* Fix: pressing two different keys stops input processing
