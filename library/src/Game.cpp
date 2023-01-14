@@ -17,13 +17,21 @@ Game::Game(Board b, State s)
 
 void Game::init_game() {
     // place initialization here
-}
+};
 
+// Input Callback
+
+void Game::on_keepress(KeyCode code) {
+    if (code == K_ESCAPE)
+        state.finish_game();
+    else if (code == K_UP)
+        state.increment_score();
+}
 
 // Update and Render
 
 void Game::update(InputManager& input) {
-    // place update here
+    // here place update
 }
 void Game::render(Renderer& r) {
     r.clear_screen();
