@@ -1,7 +1,8 @@
-#include <iostream>
-#include <thread>
+#include <chrono>
 #include "Game.h"
+
 #include "Renderer.h"
+#include "InputManager.h"
 
 void renderer_demo() {
     Renderer r;
@@ -33,16 +34,34 @@ void renderer_demo() {
 }
 
 int main() {
-    Board b(30, 8);
-    Game g(b, State());
-    g.init_game();
 
-    Renderer r;
-    r.initialize();
+    // Renderer Init
+    Renderer renderer;
+    renderer.initialize();
 
-    g.render(r);
+    // InputManager Init
+    InputManager input;
+    input.start_fetch_thread();
+    input.start_process_thread();
 
-    getchar();
+    // Game Init
+    Board board(30, 8);
+    Game game(board, State());
+    game.init_game();
+    input.add_observer(&game);
 
-    r.terminate();
+    // Game Loop
+    while (!(game.get_state().is_finished())) {
+        game.update(input);
+        game.render(renderer);
+    }
+    
+    // End Game
+    input.stop_threads();
+    renderer.clear_screen();
+    renderer.refresh_screen();
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+    renderer.terminate();
 }

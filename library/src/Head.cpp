@@ -4,7 +4,7 @@
 Head::Head(unsigned int x, unsigned int y, Game* g)
  : Entity(x, y), game(g) {}
 
-void Head::update() {
+void Head::update(InputManager& input) {
     // put update here
 };
 void Head::render(Renderer& r) {

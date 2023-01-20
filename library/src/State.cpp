@@ -49,3 +49,12 @@ bool State::should_move() {
 void State::set_should_move(bool should) {
     m_should_move = should;
 };
+
+
+// input
+std::string& State::get_input() {
+    return input;
+};
+void State::set_input(std::string& in) {
+    input = in;
+};

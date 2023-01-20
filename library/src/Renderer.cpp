@@ -3,11 +3,13 @@
 #include <stdexcept>
 
 void Renderer::initialize() {
-    initscr();
-	raw();
-	keypad(stdscr, TRUE);
-    curs_set(0);    // comment this to view cursor for debug
-	noecho();
+    initscr();  // lib init
+
+    raw();               // disable line buffering (raw() puts special chars on the screen)
+	keypad(stdscr, TRUE);   // enable arrow input
+    curs_set(0);            // comment this to view cursor for debug
+	noecho();               // disable echoing input
+    
     move(0,0);
 }
 void Renderer::terminate() {

@@ -5,12 +5,15 @@
 
 #include "Board.h"
 #include "State.h"
-class Entity;
+#include "Input.h"
 
-class Renderer;
+class Entity;
 class Food;
 
-class Game {
+class Renderer;
+class InputManager;
+
+class Game : public InputObserver {
     Board board;
     State state;
     std::vector<std::shared_ptr<Entity>> entities;
@@ -19,7 +22,9 @@ public:
     Game(Board b, State s);
     void init_game();    //place snake and food etc.
 
-    void update();
+    void on_keepress(KeyCode code) override;
+
+    void update(InputManager& input);
     void render(Renderer& renderer);
 
     void attach_entity(std::shared_ptr<Entity> entity);

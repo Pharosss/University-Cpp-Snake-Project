@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include "Food.h"
 #include "Renderer.h"
+#include "InputManager.h"
 
 #include "Head.h"
 #include "Body.h"
@@ -16,25 +17,36 @@ Game::Game(Board b, State s)
 
 void Game::init_game() {
     // place initialization here
-}
+};
 
+// Input Callback
+
+void Game::on_keepress(KeyCode code) {
+    if (code == K_ESCAPE)
+        state.finish_game();
+    else if (code == K_UP)
+        state.increment_score();
+}
 
 // Update and Render
 
-void Game::update() {
-    // place update here
+void Game::update(InputManager& input) {
+    // here place update
 }
 void Game::render(Renderer& r) {
     r.clear_screen();
 
     std::stringstream header;
-    header << "Score: " << std::to_string(state.get_score());
+    header << "Score: " << std::to_string(state.get_score()) << "    Input: " << state.get_input();
     std::string out = header.str();
     
-    r.move_cursor((r.get_width() - board.get_width())/2 - 1, (r.get_height() - board.get_height() - 2)/2 - 1);
+    auto corner_x = (r.get_width() - board.get_width())/2 - 1;
+    auto corner_y = (r.get_height() - board.get_height() - 2)/2 - 1;
+
+    r.move_cursor(corner_x, corner_y);
     r.write(out);
 
-    r.move_relative(-out.size(), 2);
+    r.move_cursor(corner_x, corner_y + 2);
     unsigned int inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
     board.render(r);
 

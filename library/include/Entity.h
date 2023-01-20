@@ -1,5 +1,6 @@
 #pragma once
 class Renderer;
+class InputManager;
 
 class Entity {
 protected:
@@ -7,7 +8,7 @@ protected:
 public:
     Entity(unsigned int x, unsigned int y);
 
-    virtual void update() = 0;
+    virtual void update(InputManager& input) = 0;
     virtual void render(Renderer& renderer) = 0;
 
     virtual bool is_food();
