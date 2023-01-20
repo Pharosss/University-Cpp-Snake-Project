@@ -7,7 +7,7 @@ class Body : public Entity {
 public:
     Body(unsigned int x, unsigned int y);
 
-    void update();
+    void update() override;
     void render(Renderer& renderer) override;
 
     void attach(std::shared_ptr<Body> next);
