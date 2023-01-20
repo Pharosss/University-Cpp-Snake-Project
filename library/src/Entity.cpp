@@ -8,7 +8,7 @@ bool Entity::is_food() {
 }
 
 void Entity::move(unsigned int x, unsigned int y) {
-    x = x; y = y;
+    this->x = x; this->y = y;
 }
 
 unsigned int Entity::get_x() {
