@@ -35,7 +35,12 @@ find_package(Curses REQUIRED)
 
 set(SOURCE_TEST_FILES
         test/master.cpp
-        test/StudentTest.cpp
+        test/BoardTest.cpp
+        test/BodyTest.cpp
+        test/FoodTest.cpp
+        test/GameTest.cpp
+        test/HeadTest.cpp
+        test/StateTest.cpp
 )
 
 include_directories(

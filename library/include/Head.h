@@ -14,6 +14,6 @@ public:
     void update(InputManager& input) override;
     void render(Renderer& renderer) override;
 
-    void attach(std::shared_ptr<Body>);
+    void attach(std::shared_ptr<Body>n);
     std::shared_ptr<Body> get_next();
 };

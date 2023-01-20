@@ -8,7 +8,7 @@ public:
     Body(unsigned int x, unsigned int y);
 
     void update();
-    void render(Renderer& renderer);
+    void render(Renderer& renderer) override;
 
     void attach(std::shared_ptr<Body> next);
     bool is_tail();
