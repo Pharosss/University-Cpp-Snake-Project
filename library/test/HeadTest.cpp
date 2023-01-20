@@ -23,7 +23,6 @@ BOOST_AUTO_TEST_CASE(Test_attach) {
 
     */
 
-
     // Więc zamiast tego ^, masz:
 
     Game *game;
