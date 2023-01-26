@@ -41,35 +41,54 @@ int main() {
     State state;
     // working with a file
     std::ifstream ifile;
-    ifile.open("file.txt");
-    //std::string myLine;
     int number;
+    /*ifile.open("file.txt");
+    
     if(ifile) {
         if(ifile.is_open())
     {
         std::cout<<"Your current score: "<< number<<'\n';
-        // Keep reading the file
-        /* while(getline(ifile, myLine))
-        {
-            // print the line on the standard output
-            std::cout << myLine << '\n';
-        } */
-
+        
         while(ifile >> number)
         if(state.get_score()>number){
              number=state.get_score();
             std::cout<<"You have improved. You currently score is: "<< number <<'\n';
-            //remove("file.txt");
-            //ifile << state.get_score() << '\n';
-        }
+         }
     }
-
-
-
       ifile.close();
     } else {
       std::cout<<"file doesn't exist";
-    }
+    } */
+
+
+    // using exception
+    try{
+        if(ifile){
+            try{
+                if(ifile.is_open()){
+                    std::cout<<"Your current score: "<< number<<'\n';
+                    ifile >> number;
+                    if(state.get_score()>number){
+                    number=state.get_score();
+                    std::cout<<"You have improved. You currently score is: "<< number <<'\n';
+                    ifile.close();
+                    }
+                    }
+                    else{
+                        throw(-1);
+                        }
+            }
+                catch(const std::exception& e){
+                    std::cout<<"Cannot open the file.";
+                    }
+            }
+            else{
+                throw (-1);
+            }
+        }
+        catch(const std::exception& e){
+            std::cout<<"File doesn't exist";
+            }
 
 
     // Renderer Init
