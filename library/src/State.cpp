@@ -1,7 +1,7 @@
 #include "State.h"
 #include <stdexcept>
 
-State::State() : score(0), speed_seconds(0.1f),
+State::State() : score(0), speed_seconds(0.15f),
     m_is_finished(false), m_is_paused(false), m_should_move(false) {}
 
 
