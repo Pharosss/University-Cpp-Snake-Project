@@ -9,6 +9,7 @@ class Head : public Body {
 public:
     Head(unsigned int x, unsigned int y, Game* g);
 
+    void update(InputManager* input) override;
     void render(Renderer& r) override;
     void move_recursive(unsigned int x, unsigned int y);
 

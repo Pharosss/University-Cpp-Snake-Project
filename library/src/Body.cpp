@@ -4,9 +4,6 @@
 Body::Body(unsigned int x, unsigned int y)
     : Entity(x, y), next(nullptr) {}
 
-void Body::update() {
-    // here place update
-};
 void Body::render(Renderer& r) {
     r.write('&');
 };

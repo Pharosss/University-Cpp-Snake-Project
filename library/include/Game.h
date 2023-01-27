@@ -25,7 +25,7 @@ public:
 
     void on_keepress(KeyCode code) override;
 
-    void update();
+    void update(InputManager* input);
     void render(Renderer& renderer);
 
     void attach_entity(std::shared_ptr<Entity> entity);

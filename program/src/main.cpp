@@ -50,7 +50,7 @@ int main() {
 
     // Game Loop
     while (!(game.get_state().is_finished())) {
-        game.update();
+        game.update(&input);
         game.render(renderer);
     }
     

@@ -39,12 +39,12 @@ void Game::on_keepress(KeyCode code) {
 
 // Update and Render
 
-void Game::update() {
+void Game::update(InputManager* input) {
     if (!board.is_position_valid(entities[0]->get_x(), entities[0]->get_y()))
         state.finish_game();
-    
+
     for (auto entity : entities)
-        entity->update();
+        entity->update(input);
 }
 
 void Game::render(Renderer& r) {
