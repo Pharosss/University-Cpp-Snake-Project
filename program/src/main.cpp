@@ -42,55 +42,33 @@ int main() {
     // working with a file
     std::ifstream ifile("file.txt");
     int number;
-    /*ifile.open("file.txt");
-    
-    if(ifile) {
-        if(ifile.is_open())
-    {
-        std::cout<<"Your current score: "<< number<<'\n';
-        
-        while(ifile >> number)
-        if(state.get_score()>number){
-             number=state.get_score();
-            std::cout<<"You have improved. You currently score is: "<< number <<'\n';
-         }
-    }
-      ifile.close();
-    } else {
-      std::cout<<"file doesn't exist";
-    } */
-
 
     // using exception
-    try{
-        if(ifile){
-            try{
-                if(ifile.is_open()){
-                    ifile >> number;
-                    if(number!=NULL)
-                    std::cout<<"Your current score: "<< number<<'\n';
-                    if(state.get_score()>number){
-                    number=state.get_score();
-                    std::cout<<"You have improved. You currently score is: "<< number <<'\n';
-                    ifile.close();
-                    }
-                    }
-                else{
-                    throw(-1);
-                    }
-            }
-                catch(const std::exception& e){
-                    std::cout<<"Cannot open the file.";
-                    }
-            }
-        else{
-            throw (-1);
-        }
-        }
-        catch(const std::exception& e){
-            std::cout<<"File doesn't exist";
-            }
+    try
+    {
+        if(ifile.is_open())
+        {
+            ifile >> number;
+            if(number!=NULL)
+                std::cout<<"Your previous score: "<< number<<'\n';
 
+            if(state.get_score()>number)
+            {
+                number=state.get_score();
+                std::cout<<"You current score: "<< number <<'\n';
+                ifile.close();
+            }
+        }
+        
+        else
+        {
+            throw std::runtime_error( "Error occured while opening the file!" );
+        }
+    }
+    catch(std::runtime_error& e)
+    {
+        std::cout<<"Error! Cannot open the file.";
+    }
 
     // Renderer Init
     Renderer renderer;
