@@ -43,8 +43,8 @@ void Game::update(InputManager* input) {
     if (!board.is_position_valid(entities[0]->get_x(), entities[0]->get_y()))
         state.finish_game();
 
-    for (auto entity : entities)
-        entity->update(input);
+    entities[0]->update(input);
+    entities[1]->update(input);
 }
 
 void Game::render(Renderer& r) {

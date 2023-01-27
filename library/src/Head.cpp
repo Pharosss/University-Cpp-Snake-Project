@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Food.h"
 #include "InputManager.h"
+#include <iostream>
 
 Head::Head(unsigned int x, unsigned int y, Game* g)
  : Body(x, y), game(g), last_arrow(K_NULL) {}
@@ -40,6 +41,7 @@ void Head::move_recursive(unsigned int x, unsigned int y) {
         get_tail_recursive()->attach(new_tail);
         game->attach_entity(new_tail);
         game->move_food();
+        game->get_state().increment_score();
     }
 
     auto now_x = get_x(), now_y = get_y();
