@@ -33,8 +33,10 @@ void Game::on_keepress(KeyCode code) {
 // Update and Render
 
 void Game::update() {
-    // here place update
+    if (!board.is_position_valid(entities[0]->get_x(), entities[0]->get_y()))
+        state.finish_game();
 }
+
 void Game::render(Renderer& r) {
     r.clear_screen();
 
