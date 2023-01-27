@@ -16,4 +16,6 @@ public:
 
     void attach(std::shared_ptr<Body>n);
     std::shared_ptr<Body> get_next();
+
+    void on_keepress(KeyCode code) override;
 };

@@ -46,12 +46,11 @@ int main() {
     // Game Init
     Board board(30, 8);
     Game game(board, State());
-    game.init_game();
-    input.add_observer(&game);
+    game.init_game(&input);
 
     // Game Loop
     while (!(game.get_state().is_finished())) {
-        game.update(input);
+        game.update();
         game.render(renderer);
     }
     

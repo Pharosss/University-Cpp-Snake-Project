@@ -20,11 +20,11 @@ class Game : public InputObserver {
 
 public:
     Game(Board b, State s);
-    void init_game();    //place snake and food etc.
+    void init_game(InputManager* input);    //place snake and food etc.
 
     void on_keepress(KeyCode code) override;
 
-    void update(InputManager& input);
+    void update();
     void render(Renderer& renderer);
 
     void attach_entity(std::shared_ptr<Entity> entity);

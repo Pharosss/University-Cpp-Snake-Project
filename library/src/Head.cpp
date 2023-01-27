@@ -17,3 +17,13 @@ void Head::attach(std::shared_ptr<Body> n) {
 std::shared_ptr<Body> Head::get_next() {
     return next;
 };
+
+void Head::on_keepress(KeyCode code) {
+    switch (code)
+    {
+    case K_UP: y--; break;
+    case K_DOWN: y++; break;
+    case K_LEFT: x--; break;
+    case K_RIGHT: x++; break;
+    }
+};

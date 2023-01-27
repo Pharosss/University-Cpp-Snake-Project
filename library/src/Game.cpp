@@ -15,8 +15,12 @@
 Game::Game(Board b, State s)
  : board(b), state(s) {}
 
-void Game::init_game() {
-    // place initialization here
+void Game::init_game(InputManager* input) {
+    input->add_observer(this);
+
+    std::shared_ptr<Head> head = std::make_shared<Head>(3, 3, this);
+    input->add_observer(head.get());
+    attach_entity(head);
 };
 
 // Input Callback
@@ -30,7 +34,7 @@ void Game::on_keepress(KeyCode code) {
 
 // Update and Render
 
-void Game::update(InputManager& input) {
+void Game::update() {
     // here place update
 }
 void Game::render(Renderer& r) {

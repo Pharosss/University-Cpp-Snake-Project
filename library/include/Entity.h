@@ -1,8 +1,9 @@
 #pragma once
+#include "Input.h"
 class Renderer;
 class InputManager;
 
-class Entity {
+class Entity : public InputObserver {
 protected:
     unsigned int x, y;
 public:
