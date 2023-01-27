@@ -2,9 +2,26 @@
 #include "Renderer.h"
 #include "Game.h"
 #include "Food.h"
+#include "InputManager.h"
 
 Head::Head(unsigned int x, unsigned int y, Game* g)
- : Body(x, y), game(g) {}
+ : Body(x, y), game(g), last_arrow(K_NULL) {}
+
+void Head::update(InputManager* input) {
+    if (game->get_state().should_move()) {
+        auto x = get_x(), y = get_y();
+
+        switch (last_arrow) {
+            case K_UP:    move_recursive(x, y-1); break;
+            case K_DOWN:  move_recursive(x, y+1); break;
+            case K_LEFT:  move_recursive(x-1, y); break;
+            case K_RIGHT: move_recursive(x+1, y); break;
+        }
+
+        game->get_state().set_should_move(false);
+    }
+    
+}
 
 void Head::render(Renderer& r) {
     r.write('%');
@@ -31,16 +48,15 @@ void Head::move_recursive(unsigned int x, unsigned int y) {
     
 };
 
-
 void Head::on_keepress(KeyCode code) {
+    if (code < K_UP || code > K_RIGHT)
+        return;
 
-    auto x = get_x(), y = get_y();
+    if (last_arrow == K_UP && code == K_DOWN ||
+        last_arrow == K_DOWN && code == K_UP ||
+        last_arrow == K_LEFT && code == K_RIGHT ||
+        last_arrow == K_RIGHT && code == K_LEFT)
+        return;
 
-    switch (code)
-    {
-    case K_UP:    move_recursive(x, y-1); break;
-    case K_DOWN:  move_recursive(x, y+1); break;
-    case K_LEFT:  move_recursive(x-1, y); break;
-    case K_RIGHT: move_recursive(x+1, y); break;
-    }
+    last_arrow = code;
 };
