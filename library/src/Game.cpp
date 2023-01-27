@@ -22,7 +22,7 @@ void Game::init_game() {
 // Input Callback
 
 void Game::on_keepress(KeyCode code) {
-    if (code == K_ESCAPE)
+    if (code == K_RETURN)
         state.finish_game();
     else if (code == K_UP)
         state.increment_score();

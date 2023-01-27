@@ -18,4 +18,4 @@ sudo apt-get install libboost-all-dev
 
 ## TODO:
 
-* Fix: pressing two different keys stops input processing
+* main mechanics of the game

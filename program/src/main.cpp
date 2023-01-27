@@ -41,8 +41,7 @@ int main() {
 
     // InputManager Init
     InputManager input;
-    input.start_fetch_thread();
-    input.start_process_thread();
+    input.start_fetching_thread();
 
     // Game Init
     Board board(30, 8);
@@ -57,7 +56,7 @@ int main() {
     }
     
     // End Game
-    input.stop_threads();
+    input.stop_fetching_thread();
     renderer.clear_screen();
     renderer.refresh_screen();
 
