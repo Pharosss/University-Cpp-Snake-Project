@@ -28,8 +28,6 @@ void Game::init_game(InputManager* input) {
 void Game::on_keepress(KeyCode code) {
     if (code == K_RETURN)
         state.finish_game();
-    else if (code == K_UP)
-        state.increment_score();
 }
 
 // Update and Render
