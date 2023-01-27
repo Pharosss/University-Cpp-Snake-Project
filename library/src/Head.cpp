@@ -24,6 +24,11 @@ void Head::move_recursive(unsigned int x, unsigned int y) {
         game->attach_entity(new_tail);
         game->move_food();
     }
+
+    auto now_x = get_x(), now_y = get_y();
+    if (!is_tail() && get_next()->is_at_recursive(now_x, now_y))
+        game->get_state().finish_game();
+    
 };
 
 
