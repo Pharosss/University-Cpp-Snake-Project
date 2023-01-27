@@ -10,6 +10,7 @@ public:
     Head(unsigned int x, unsigned int y, Game* g);
 
     void render(Renderer& r) override;
+    void move_recursive(unsigned int x, unsigned int y);
 
     void on_keepress(KeyCode code) override;
 };

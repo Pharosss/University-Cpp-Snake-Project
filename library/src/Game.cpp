@@ -3,17 +3,16 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
+#include <cassert>
+#include <cstdint>
 
 #include "Entity.h"
-#include "Food.h"
 #include "Renderer.h"
 #include "InputManager.h"
 
-#include "Head.h"
+#include "Food.h"
 #include "Body.h"
-
-#include <cassert>
-#include <cstdint>
+#include "Head.h"
 
 Game::Game(Board b, State s)
  : board(b), state(s) {}
@@ -26,7 +25,9 @@ void Game::init_game(InputManager* input) {
     input->add_observer(head.get());
     attach_entity(head);
 
-    spawn_food();
+    auto food = std::make_shared<Food>(0, 0);
+    attach_entity(food);
+    move_food();
 };
 
 // Input Callback
@@ -41,6 +42,9 @@ void Game::on_keepress(KeyCode code) {
 void Game::update() {
     if (!board.is_position_valid(entities[0]->get_x(), entities[0]->get_y()))
         state.finish_game();
+    
+    for (auto entity : entities)
+        entity->update();
 }
 
 void Game::render(Renderer& r) {
@@ -88,7 +92,7 @@ void Game::detach_entity(std::shared_ptr<Entity> entity) {
 
 // Food
 
-void Game::spawn_food() {
+void Game::move_food() {
 
     unsigned int new_x, new_y,
         w = board.get_width(),
@@ -99,8 +103,8 @@ void Game::spawn_food() {
         new_y = std::rand() % h;
     } while (get_head()->is_at_recursive(new_x, new_y));
 
-    auto f = std::make_shared<Food>(new_x, new_y);
-    attach_entity(f);
+
+    get_food()->move(new_x, new_y);
 }
 
 std::shared_ptr<Entity> Game::find_food_at(unsigned int x, unsigned int y) {
@@ -128,4 +132,11 @@ Head* Game::get_head() {
         return nullptr;
     
     return reinterpret_cast<Head*>(entities[0].get());
+}
+
+Food* Game::get_food() {
+    if (entities.size() < 2)
+        return nullptr;
+    
+    return reinterpret_cast<Food*>(entities[1].get());
 }

@@ -31,10 +31,12 @@ public:
     void attach_entity(std::shared_ptr<Entity> entity);
     void detach_entity(std::shared_ptr<Entity> entity);
 
-    void spawn_food();
+    void move_food();
     std::shared_ptr<Entity> find_food_at(unsigned int x, unsigned int y);
 
     Board& get_board();
     State& get_state();
+
     Head* get_head();
+    Food* get_food();
 };
