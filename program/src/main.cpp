@@ -40,7 +40,7 @@ int main() {
     // creating a State object to get to know the score
     State state;
     // working with a file
-    std::ifstream ifile;
+    std::ifstream ifile("file.txt");
     int number;
     /*ifile.open("file.txt");
     
@@ -67,6 +67,7 @@ int main() {
             try{
                 if(ifile.is_open()){
                     ifile >> number;
+                    if(number!=NULL)
                     std::cout<<"Your current score: "<< number<<'\n';
                     if(state.get_score()>number){
                     number=state.get_score();
