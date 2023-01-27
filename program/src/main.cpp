@@ -46,12 +46,22 @@ int main() {
     // Game Init
     Board board(30, 8);
     Game game(board, State());
-    game.init_game();
-    input.add_observer(&game);
+    game.init_game(&input);
+
+    // Timer Init
+    auto timer_lambda = [](State* state) {
+        while (!state->is_finished()) {
+            unsigned int delta = state->get_speed() * 1000;
+            std::this_thread::sleep_for(std::chrono::milliseconds(delta));
+            state->set_should_move(true);
+        }
+    };
+    std::thread timer_thread(timer_lambda, &game.get_state());
+    timer_thread.detach();
 
     // Game Loop
     while (!(game.get_state().is_finished())) {
-        game.update(input);
+        game.update(&input);
         game.render(renderer);
     }
     

@@ -3,6 +3,14 @@
 Entity::Entity(unsigned int x, unsigned int y)
  : x(x), y(y) {}
 
+void Entity::update(InputManager* input) {
+    // intentionally left blank
+}
+void Entity::render(Renderer& renderer) {
+    // intentionally left blank
+}
+
+
 bool Entity::is_food() {
     return false;
 }
