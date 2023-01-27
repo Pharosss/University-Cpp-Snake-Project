@@ -16,4 +16,6 @@ public:
     bool is_at_recursive(unsigned int x, unsigned int y);
     Body* get_tail_recursive();
     void move_recursive(unsigned int x, unsigned int y);
+
+    std::shared_ptr<Body> get_next();
 };

@@ -1,21 +1,15 @@
 #pragma once
 #include <memory>
-#include "Entity.h"
+#include "Body.h"
 
-class Body;
 class Game;
 
-class Head : public Entity {
+class Head : public Body {
     Game* game;
-    std::shared_ptr<Body> next;
 public:
     Head(unsigned int x, unsigned int y, Game* g);
 
-    void update() override;
-    void render(Renderer& renderer) override;
-
-    void attach(std::shared_ptr<Body>n);
-    std::shared_ptr<Body> get_next();
+    void render(Renderer& r) override;
 
     void on_keepress(KeyCode code) override;
 };

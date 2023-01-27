@@ -9,6 +9,7 @@
 
 class Entity;
 class Food;
+class Head;
 
 class Renderer;
 class InputManager;
@@ -35,4 +36,5 @@ public:
 
     Board& get_board();
     State& get_state();
+    Head* get_head();
 };
