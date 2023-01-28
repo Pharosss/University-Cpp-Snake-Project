@@ -6,19 +6,20 @@
 #include <iostream>
 
 Head::Head(unsigned int x, unsigned int y, Game* g)
- : Body(x, y), game(g), last_arrow(K_NULL) {}
+ : Body(x, y), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
 
 void Head::update(InputManager* input) {
     if (game->get_state().should_move()) {
         auto x = get_x(), y = get_y();
 
-        switch (last_arrow) {
+        switch (new_arrow) {
             case K_UP:    move_recursive(x, y-1); break;
             case K_DOWN:  move_recursive(x, y+1); break;
             case K_LEFT:  move_recursive(x-1, y); break;
             case K_RIGHT: move_recursive(x+1, y); break;
         }
 
+        last_arrow = new_arrow;
         game->get_state().set_should_move(false);
     }
     
@@ -60,5 +61,5 @@ void Head::on_keepress(KeyCode code) {
         last_arrow == K_RIGHT && code == K_LEFT)
         return;
 
-    last_arrow = code;
+    new_arrow = code;
 };

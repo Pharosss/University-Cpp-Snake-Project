@@ -6,7 +6,7 @@ class Game;
 
 class Head : public Body {
     Game* game;
-    KeyCode last_arrow;
+    KeyCode last_arrow, new_arrow;
 public:
     Head(unsigned int x, unsigned int y, Game* g);
 
