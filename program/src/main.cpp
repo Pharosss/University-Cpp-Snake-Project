@@ -1,12 +1,9 @@
 #include <chrono>
 #include "Game.h"
-#include <fstream>
-#include <iostream>
-#include <cstdio>
-#include <string>
 
 #include "Renderer.h"
 #include "InputManager.h"
+#include "CLIReader.h"
 
 void renderer_demo() {
     Renderer r;
@@ -39,56 +36,10 @@ void renderer_demo() {
 
 int main(int argc, char *argv[]) {
 
-    std::cout << "argc: " << argc << '\n';
-    for (size_t i = 0; i < argc; i++)
-        std::cout << "argv " << i << ": '" << argv[i] << "'\n";
-
-    if (argc == 2 && (argv[1] == std::string("-h") || argv[1] == std::string("-help"))) {
-        std::cout<<"Terminal Snake Game made by Mateusz Kubiak and Gosia Komorowska\n"
-        << "@ Lodz University of Technology\n"
-        << '\n'
-        << "Controls:\n"
-        << "WASD - change direction of the snake"
-        << "Tab - exit the game\n"  // REMEMBER! Change it after implementing menu
-        << '\n'
-        << "Available options:\n"
-        << "-b - change game board dimensions (pattern: 'UINTxUINT' i.e. '30x20').\n"
-        << "-d - change difficulty (e - easy, m - medium, h - hard).\n"
-        << "-s - change time duration between snake moves (double seconds) - uncompatible with -d.\n"
-        << '\n'
-        << "-H - show highscore. Does not run the game.\n"
-        << "-c - clear highscore. Does not run the game.\n"
-        << "-h (-help) - view this page.\n";
+    CLIReader cli;
+    cli.analyse_arguments(argc, argv);
+    if (!cli.game_should_start())
         return 0;
-    }
-    else if (argc == 2 && argv[1] == std::string("-c")) {
-        std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
-        std::string response = "";
-        while (response != "yes" && response != "no")
-            std::cin >> response;
-
-        if (response == "yes") {
-            // clear the highscore
-            std::cout << "Highscore cleared!\n";
-            return 0;
-        }
-        else if (response == "no") {
-            std::cout<<"Highscore has not been cleared.\n";
-            return 0;
-        }
-    }
-    else if (argc >= 2) {
-
-
-
-
-    }
-    else {
-        std::cout<<"unrecognized parameters. Please write -h or -help to access teh help page\n";
-        return 0; 
-    }
-
-    return 0;
 
     // creating a State object to get to know the score
     State state;
@@ -153,8 +104,9 @@ int main(int argc, char *argv[]) {
     input.start_fetching_thread();
 
     // Game Init
-    Board board(30, 8);
+    Board board(cli.get_board_w(), cli.get_board_h());
     Game game(board, State());
+    game.get_state().set_speed(cli.get_speed_seconds());
     game.init_game(&input);
 
     // Timer Init
