@@ -9,12 +9,19 @@ void print_help_error() {
 
 // CLIREADER
 
+#define END_READERS(str) {\
+    std::cout << "Error! " << str << '\n'; \
+    print_help_error();\
+    reader->should_start = false;\
+    return -1;\
+    }
+
 CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, float default_speed)
   : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed) {
 
     // -c: clear highscore
-    argument_readers["-c"] = [](CLIReader* reader, std::string value){  
-        std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
+    argument_readers["-c"] = [](CLIReader* reader, std::string value){
+                std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
         std::string response = "";
         while (response != "yes" && response != "no")
             std::cin >> response;
@@ -42,60 +49,44 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
         << "Available options:\n"
         << "-b - change game board dimensions (pattern: 'UINTxUINT' i.e. '-b 40x20').\n"
         << "-d - change difficulty (e - easy, m - medium, h - hard).\n"
-        << "-s - change time duration between snake moves (double seconds) - uncompatible with -d.\n"
+        << "-s - change time duration between snake moves (double seconds).\n"
         << '\n'
         << "-H - show highscore. Does not run the game.\n"
         << "-c - clear highscore. Does not run the game.\n"
-        << "-h (-help) - view this page.\n";
+        << "-h (-help) - view this page. Does not run the game\n";
         reader->should_start = false;
         return -1;
     };
 
+    // -b: change board dimensions
     argument_readers["-b"] = [](CLIReader* reader, std::string value){
-        if (value == "") {
-            std::cout<<"Error! Parameter -b cannot be empty!\n";
-            print_help_error();
-            reader->should_start = false;
-            return -1;
-        }
+        if (value == "")
+            END_READERS("Parameter -b cannot be empty!");
         
         int x_index = value.find('x');
-        if (x_index == -1) {
-            print_help_error();
-            reader->should_start = false;
-            return -1;
-        }
+        if (x_index == -1)
+            END_READERS("Invalid board size argument. Use pattern UINTxUINT i.e. '-b 40x20'");
 
         try {
             int b_width = std::stoul(value.substr(0, x_index)),
                 b_height = std::stoul(value.substr(x_index + 1, value.size()));
             
-            if (b_width < 1 || b_height < 1) {
-                std::cout<<"Error! Invalid board size argument. Board size has to be at least 1x1\n";
-                print_help_error();
-                reader->should_start = false;
-                return -1;
-            }
+            if (b_width < 1 || b_height < 1)
+                END_READERS("Invalid board size argument. Board size has to be at least 1x1");
 
             reader->board_w = b_width;
             reader->board_h = b_height;
         } catch(std::invalid_argument& e) {
-            std::cout<<"Error! Invalid board size argument. Use pattern UINTxUINT i.e. '-b 40x20'\n";
-            print_help_error();
-            reader->should_start = false;
-            return -1;
+            END_READERS("Invalid board size argument. Use pattern UINTxUINT i.e. '-b 40x20'")
         }
     };
 
+    // -d: change difficulty level
     argument_readers["-d"] = [](CLIReader* reader, std::string value){
-        if (value == "") {
-            std::cout<<"Error! Difficulty argument cannot be empty. Use either s, small, m, medium, h or hard\n";
-            print_help_error();
-            reader->should_start = false;
-            return -1;
-        }
+        if (value == "")
+            END_READERS("Difficulty argument cannot be empty. Use either e, easy, m, medium, h or hard");
         
-        if (value == "s" || value == "medium") {
+        if (value == "e" || value == "easy") {
             reader->speed_seconds = .2f;
         }
         else if (value == "m" || value == "medium") {
@@ -104,13 +95,28 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
         else if (value == "h" || value == "hard") {
             reader->speed_seconds = .1f;
         }
-        else {
-            std::cout<<"Error! Invalid difficulty argument. Use either s, small, m, medium, h or hard\n";
-            print_help_error();
-            reader->should_start = false;
-            return -1;
+        else
+            END_READERS("Invalid difficulty argument. Use either s, small, m, medium, h or hard");
+
+        return 0;
+    };
+
+    // -s: speed (float in seconds)
+    argument_readers["-s"] = [](CLIReader* reader, std::string value){
+        if (value == "")
+            END_READERS("Error! Speed argument cannot be empty. Use a positive float fumber");
+
+        float new_speed = 0.f;
+        try {
+            new_speed = std::stof(value);
+            if (new_speed <= 0.f)
+                throw std::invalid_argument("");
+        }
+        catch (std::invalid_argument e){
+            END_READERS("Invalid speed argument. Use a positive float fumber");
         }
 
+        reader->speed_seconds = new_speed;
         return 0;
     };
     
