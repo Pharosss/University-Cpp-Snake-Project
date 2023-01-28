@@ -1,8 +1,9 @@
 #include <chrono>
 #include "Game.h"
 #include <fstream>
-#include<iostream>
+#include <iostream>
 #include <cstdio>
+#include <string>
 
 #include "Renderer.h"
 #include "InputManager.h"
@@ -36,7 +37,48 @@ void renderer_demo() {
     r.terminate();
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    std::cout << "argc: " << argc << '\n';
+    for (size_t i = 0; i < argc; i++)
+        std::cout << "argv " << i << ": '" << argv[i] << "'\n";
+
+    if (argc == 2 && (argv[1] == std::string("-h") || argv[1] == std::string("-help"))) {
+        std::cout<<"Terminal Snake Game made by Mateusz Kubiak and Gosia Komorowska\n"
+        << "@ Lodz University of Technology\n\n"
+        << "Available options:\n"
+        << "-b - change game board dimensions (pattern: 'UINTxUINT' i.e. '30x20').\n"
+        << "-d - change difficulty (e - easy, m - medium, h - hard).\n"
+        << "-s - change time duration between snake moves (double seconds) - uncompatible with -d.\n"
+        << '\n'
+        << "-H - show highscore. Does not run the game.\n"
+        << "-c - clear highscore. Does not run the game.\n"
+        << "-h (-help) - view this page.\n";
+        return 0;
+    }
+    else if (argc == 2 && argv[1] == std::string("-c")) {
+        std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
+        std::string response = "";
+        while (response != "yes" && response != "no")
+            std::cin >> response;
+
+        if (response == "yes") {
+            // clear the highscore
+            std::cout << "Highscore cleared!\n";
+            return 0;
+        }
+        else if (response == "no") {
+            std::cout<<"Highscore has not been cleared.\n";
+            return 0;
+        }
+    }
+    else {
+        std::cout<<"unrecognized parameters. Please write -h or -help to access teh help page\n";
+        return 0; 
+    }
+
+    return 0;
+
     // creating a State object to get to know the score
     State state;
     // working with a file
