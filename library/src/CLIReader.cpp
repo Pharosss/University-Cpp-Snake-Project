@@ -19,24 +19,6 @@ void print_help_error() {
 CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, float default_speed)
   : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed) {
 
-    // -c: clear highscore
-    argument_readers["-c"] = [](CLIReader* reader, std::string value){
-                std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
-        std::string response = "";
-        while (response != "yes" && response != "no")
-            std::cin >> response;
-
-        if (response == "yes") {
-            // clear the highscore
-            std::cout << "Highscore cleared!\n";
-        }
-        else if (response == "no")
-            std::cout<<"Highscore has not been cleared.\n";
-        
-        reader->should_start = false;
-        return -1;
-    };
-
     // -h / -help: help page
     argument_readers["-h"] = argument_readers["-help"] = [](CLIReader* reader, std::string value) {
         std::cout<<"Terminal Snake Game made by Mateusz Kubiak and Gosia Komorowska\n"
@@ -54,6 +36,31 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
         << "-H - show highscore. Does not run the game.\n"
         << "-c - clear highscore. Does not run the game.\n"
         << "-h (-help) - view this page. Does not run the game\n";
+        reader->should_start = false;
+        return -1;
+    };
+
+    // -H: show highscore
+    argument_readers["-H"] = [](CLIReader* reader, std::string value) {
+        std::cout << "Your highscore is: " << 0 << '\n';
+        reader->should_start = false;
+        return -1;
+    };
+
+    // -c: clear highscore
+    argument_readers["-c"] = [](CLIReader* reader, std::string value){
+        std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
+        std::string response = "";
+        while (response != "yes" && response != "no")
+            std::cin >> response;
+
+        if (response == "yes") {
+            // clear the highscore
+            std::cout << "Highscore cleared!\n";
+        }
+        else if (response == "no")
+            std::cout<<"Highscore has not been cleared.\n";
+        
         reader->should_start = false;
         return -1;
     };
