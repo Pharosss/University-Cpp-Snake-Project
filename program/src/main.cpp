@@ -36,7 +36,7 @@ void renderer_demo() {
 
 int main(int argc, char *argv[]) {
 
-    CLIReader cli;
+    CLIReader cli(30, 10, 0.15f);
     cli.analyse_arguments(argc, argv);
     if (!cli.game_should_start())
         return 0;

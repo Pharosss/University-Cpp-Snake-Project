@@ -6,7 +6,7 @@ class CLIReader {
     unsigned int board_h;
     float speed_seconds;
 public:
-    CLIReader();
+    CLIReader(unsigned int default_width, unsigned int default_height, float default_speed);
     void analyse_arguments(int argc, char *argv[]);
     bool game_should_start();
 
