@@ -1,11 +1,9 @@
 #include <chrono>
 #include "Game.h"
-#include <fstream>
-#include<iostream>
-#include <cstdio>
 
 #include "Renderer.h"
 #include "InputManager.h"
+#include "CLIReader.h"
 
 void renderer_demo() {
     Renderer r;
@@ -36,7 +34,13 @@ void renderer_demo() {
     r.terminate();
 }
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    CLIReader cli(30, 10, 0.15f);
+    cli.analyse_arguments(argc, argv);
+    if (!cli.game_should_start())
+        return 0;
+
     // creating a State object to get to know the score
     State state;
     // working with a file
@@ -100,8 +104,9 @@ int main() {
     input.start_fetching_thread();
 
     // Game Init
-    Board board(30, 8);
+    Board board(cli.get_board_w(), cli.get_board_h());
     Game game(board, State());
+    game.get_state().set_speed(cli.get_speed_seconds());
     game.init_game(&input);
 
     // Timer Init
