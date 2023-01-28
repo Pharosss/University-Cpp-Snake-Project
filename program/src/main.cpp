@@ -5,6 +5,10 @@
 #include "InputManager.h"
 #include "CLIReader.h"
 
+#define DEFAULT_WIDTH 50
+#define DEFAULT_HEIGHT 10
+#define DEFAULT_SPEED 0.15f
+
 void renderer_demo() {
     Renderer r;
     r.initialize();
@@ -36,7 +40,7 @@ void renderer_demo() {
 
 int main(int argc, char *argv[]) {
 
-    CLIReader cli(30, 10, 0.15f);
+    CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED);
     cli.analyse_arguments(argc, argv);
     if (!cli.game_should_start())
         return 0;
