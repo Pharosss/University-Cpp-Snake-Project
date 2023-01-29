@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <fstream>
 
-int readFile(std::string path)
+int loadHighscore(std::string path)
 {
     std::ifstream ifile(path);
     int number = -1;
@@ -17,14 +17,14 @@ int readFile(std::string path)
         ifile >> number;
     }
     catch(std::runtime_error& e) {
-        std::cout<<"Error! Cannot open the file.";
+        //std::cout<<"Error! Cannot open the file.";
     }
 
     ifile.close();
     return number;
 }
 
-int writeToFile(std::string path, int in)
+int saveHighscore(std::string path, int in)
 {
     std::ofstream ifile(path);
     int out = 0;
@@ -34,7 +34,7 @@ int writeToFile(std::string path, int in)
         ifile << in;
     }
     catch(std::runtime_error& e) {
-        std::cout<<"Error! Cannot open the file.";
+        //std::cout<<"Error! Cannot open the file.";
         out = -1;
     }
     ifile.close();

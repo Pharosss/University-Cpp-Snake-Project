@@ -1,13 +1,17 @@
 #include <chrono>
+#include <iostream>
+
 #include "Game.h"
 
 #include "Renderer.h"
 #include "InputManager.h"
 #include "CLIReader.h"
+#include "FileIO.h"
 
 #define DEFAULT_WIDTH 50
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_SPEED 0.15f
+#define HIGHSCORE_FILEPATH "highscore.txt"
 
 void renderer_demo() {
     Renderer r;
@@ -85,4 +89,39 @@ int main(int argc, char *argv[]) {
     std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
     renderer.terminate();
+
+    // Highscore Management
+    int old_hs = loadHighscore(HIGHSCORE_FILEPATH);
+    int new_hs = game.get_state().get_score();
+
+    if (new_hs <= old_hs || new_hs == 0) {
+        std::cout << "Your score was: " << new_hs;
+        getchar();
+        return 0;
+    }
+
+    if (old_hs == -1)
+        std::cout<<"You have no previous highscore saved.\n";
+    else {
+        std::cout<<"Congratulations!\n"
+        <<"You have beaten your previous highscore of: " << old_hs << '\n';
+    }
+    std::cout << "Your new highscore is: " << new_hs <<'\n'
+    << "Do you want to save the highscore? Write [yes/no]\n";
+
+    std::string resp;
+    while (resp != "yes" && resp != "no")
+        std::cin >> resp;
+
+    if (resp == "no")
+        return 0;
+
+    if(saveHighscore(HIGHSCORE_FILEPATH, new_hs)) {
+        std::cout<<"Error while writing the file!\n";
+        return -1;
+    }
+
+    std::cout<<"Highscore has been saved\n";
+
+    return 0;
 }

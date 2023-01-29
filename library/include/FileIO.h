@@ -2,6 +2,6 @@
 
 #include <string>
 
-int readFile(std::string path);
+int loadHighscore(std::string path);
 
-int writeToFile(std::string path, int in);
+int saveHighscore(std::string path, int in);
