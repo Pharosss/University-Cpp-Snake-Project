@@ -1,8 +1,7 @@
-#include<iostream>
-#include <cstdio>
-#include <fstream>
-#include "State.h"
+#pragma once
 
-int readFile();
+#include <string>
 
-void writeToFile();
+int readFile(std::string path);
+
+int writeToFile(std::string path, int in);

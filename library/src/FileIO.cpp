@@ -1,54 +1,42 @@
 #include "FileIO.h"
 
-int readFile()
+#include <iostream>
+#include <cstdio>
+#include <fstream>
+
+int readFile(std::string path)
 {
-    std::ifstream ifile("file.txt");
-    int number;
+    std::ifstream ifile(path);
+    int number = -1;
 
     // using exception
-    try
-    {
-        if(ifile.is_open())
-        {
-            ifile >> number;
-            if(number!=NULL)
-                std::cout<<"Your highest score: "<< number<<'\n';
-                ifile.close();
-        } 
-        else
-        {
+    try {
+        if(!ifile.is_open())
             throw std::runtime_error( "Error occured while opening the file!" );
-        }
         
+        ifile >> number;
     }
-    catch(std::runtime_error& e)
-    {
+    catch(std::runtime_error& e) {
         std::cout<<"Error! Cannot open the file.";
     }
-        return number;
+
+    ifile.close();
+    return number;
 }
 
-void writeToFile()
+int writeToFile(std::string path, int in)
 {
-    State state;
-    std::ofstream ifile("file.txt");
-    try
-    {
-        if(ifile.is_open())
-        {
-            if(state.get_score()>readFile())
-            {
-                ifile << state.get_score();
-                ifile.close();
-            }
-        } 
-        else
-        {
+    std::ofstream ifile(path);
+    int out = 0;
+    try {
+        if(!ifile.is_open())
             throw std::runtime_error( "Error occured while opening the file!" );
-        }
+        ifile << in;
     }
-    catch(std::runtime_error& e)
-    {
+    catch(std::runtime_error& e) {
         std::cout<<"Error! Cannot open the file.";
+        out = -1;
     }
+    ifile.close();
+    return out;
 }

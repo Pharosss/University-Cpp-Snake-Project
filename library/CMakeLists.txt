@@ -7,6 +7,7 @@ set(SOURCE_FILES
     include/Board.h
     include/Body.h
     include/Entity.h
+    include/FileIO.h
     include/Food.h
     include/Game.h
     include/Head.h
@@ -16,6 +17,7 @@ set(SOURCE_FILES
     src/Board.cpp
     src/Body.cpp
     src/Entity.cpp
+    src/FileIO.cpp
     src/Food.cpp
     src/Game.cpp
     src/Head.cpp
