@@ -49,7 +49,7 @@ void Game::render(Renderer& r) {
     r.clear_screen();
 
     std::stringstream header;
-    header << "Score: " << std::to_string(state.get_score()) << "    Input: " << state.get_input();
+    header << "Score: " << std::to_string(state.get_score());
     std::string out = header.str();
     
     auto corner_x = (r.get_viewport_width() - board.get_width())/2 - 1;
