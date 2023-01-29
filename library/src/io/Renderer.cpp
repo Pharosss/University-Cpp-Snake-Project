@@ -16,42 +16,45 @@ void Renderer::terminate() {
     endwin();
 }
 
-unsigned int Renderer::get_viewport_width() {
-    unsigned int w, h;
+unsigned Renderer::get_viewport_width() {
+    unsigned w, h;
     getmaxyx(stdscr, h, w);
     return w;
 }
-unsigned int Renderer::get_viewport_height() {
-    unsigned int w, h;
+unsigned Renderer::get_viewport_height() {
+    unsigned w, h;
     getmaxyx(stdscr, h, w);
     return h;
 }
 
-unsigned int Renderer::get_x() {
+unsigned Renderer::get_x() {
     int currx, curry;
     getyx(stdscr, curry, currx);
     return currx;
-};
-unsigned int Renderer::get_y() {
+}
+
+unsigned Renderer::get_y() {
     int currx, curry;
     getyx(stdscr, curry, currx);
     return curry;
-};
+}
 
 void Renderer::refresh_screen() {
     refresh();
 }
+
 void Renderer::clear_screen() {
     erase();
 }
 
-void Renderer::move_cursor(unsigned int x, unsigned int y) {
-    unsigned int w, h;
+void Renderer::move_cursor(unsigned x, unsigned y) {
+    unsigned w, h;
     getmaxyx(stdscr, h, w);
     if (x >= w || y >= h)
         throw std::runtime_error("Cursor out of bounds!");
     move(y, x);
 }
+
 void Renderer::move_relative(int x, int y) {
     int currx, curry;
     getyx(stdscr, curry, currx);
@@ -61,9 +64,11 @@ void Renderer::move_relative(int x, int y) {
 void Renderer::write(char ch) {
     addch(ch);
 }
+
 void Renderer::write(const char *str) {
     printw(str);
 }
+
 void Renderer::write(std::string &str) {
     printw(str.c_str());
 }

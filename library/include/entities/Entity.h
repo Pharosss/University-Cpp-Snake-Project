@@ -5,16 +5,17 @@ class InputManager;
 
 class Entity : public InputObserver {
 protected:
-    unsigned int x, y;
+    unsigned x, y;
+    
 public:
-    Entity(unsigned int x, unsigned int y);
+    Entity(unsigned x, unsigned y);
 
     virtual void update(InputManager* input);
     virtual void render(Renderer& renderer);
 
     virtual bool is_food();
 
-    void move(unsigned int x, unsigned int y);
-    unsigned int get_x();
-    unsigned int get_y();
+    void move(unsigned x, unsigned y);
+    unsigned get_x();
+    unsigned get_y();
 };

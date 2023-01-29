@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <fstream>
 
-int loadHighscore(std::string path)
+int load_highscore(std::string path)
 {
     std::ifstream ifile(path);
     int number = -1;
@@ -24,7 +24,7 @@ int loadHighscore(std::string path)
     return number;
 }
 
-int saveHighscore(std::string path, int in)
+int save_highscore(std::string path, int in)
 {
     std::ofstream ifile(path);
     int out = 0;

@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
     // Timer Init
     auto timer_lambda = [](State* state) {
         while (!state->is_finished()) {
-            unsigned int delta = state->get_speed() * 1000;
+            unsigned delta = state->get_speed() * 1000;
             std::this_thread::sleep_for(std::chrono::milliseconds(delta));
             state->set_should_move(true);
         }
@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
     renderer.terminate();
 
     // Highscore Management
-    int old_hs = loadHighscore(highscore_path);
+    int old_hs = load_highscore(highscore_path);
     int new_hs = game.get_state().get_score();
 
     if (new_hs <= old_hs || new_hs == 0) {
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
     if (resp == "no")
         return 0;
 
-    if(saveHighscore(highscore_path, new_hs)) {
+    if(save_highscore(highscore_path, new_hs)) {
         std::cout<<"Error while writing the file!\n";
         return -1;
     }

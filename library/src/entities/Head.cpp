@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-Head::Head(unsigned int x, unsigned int y, Game* g)
+Head::Head(unsigned x, unsigned y, Game* g)
  : Body(x, y), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
 
 void Head::update(InputManager* input) {
@@ -24,14 +24,13 @@ void Head::update(InputManager* input) {
         last_arrow = new_arrow;
         game->get_state().set_should_move(false);
     }
-    
 }
 
 void Head::render(Renderer& r) {
     r.write('%');
-};
+}
 
-void Head::move_recursive(unsigned int x, unsigned int y) {
+void Head::move_recursive(unsigned x, unsigned y) {
     auto old_tail_x = get_tail_recursive()->get_x(),
         old_tail_y = get_tail_recursive()->get_y();
     
@@ -51,7 +50,7 @@ void Head::move_recursive(unsigned int x, unsigned int y) {
     if (!is_tail() && get_next()->is_at_recursive(now_x, now_y))
         game->get_state().finish_game();
     
-};
+}
 
 void Head::on_keepress(KeyCode code) {
     if (code < K_UP || code > K_RIGHT)
@@ -64,4 +63,4 @@ void Head::on_keepress(KeyCode code) {
         return;
 
     new_arrow = code;
-};
+}

@@ -1,12 +1,8 @@
 #include "game/Board.h"
 #include "io/Renderer.h"
 
-Board::Board(unsigned int w, unsigned int h)
+Board::Board(unsigned w, unsigned h)
 : width(w), height(h) {}
-
-bool Board::is_position_valid(unsigned int x, unsigned int y) {
-    return (x < width && y < height);
-}
 
 void Board::render(Renderer& r) {
     for (size_t i = 0; i < width + 2; i++) {
@@ -27,9 +23,14 @@ void Board::render(Renderer& r) {
     }    
 }
 
-unsigned int Board::get_width() {
+bool Board::is_position_valid(unsigned x, unsigned y) {
+    return (x < width && y < height);
+}
+
+unsigned Board::get_width() {
     return width;
-};
-unsigned int Board::get_height() {
+}
+
+unsigned Board::get_height() {
     return height;
-};
+}

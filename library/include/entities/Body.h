@@ -4,17 +4,17 @@
 
 class Body : public Entity {
     std::shared_ptr<Body> next;
+
 public:
-    Body(unsigned int x, unsigned int y);
+    Body(unsigned x, unsigned y);
 
     void render(Renderer& renderer) override;
 
     void attach(std::shared_ptr<Body> next);
+    std::shared_ptr<Body> get_next();
     bool is_tail();
 
-    bool is_at_recursive(unsigned int x, unsigned int y);
+    bool is_at_recursive(unsigned x, unsigned y);
     Body* get_tail_recursive();
-    void move_recursive(unsigned int x, unsigned int y);
-
-    std::shared_ptr<Body> get_next();
+    void move_recursive(unsigned x, unsigned y);
 };

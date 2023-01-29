@@ -15,7 +15,3 @@ Similarily, to install boost use:
 ```
 sudo apt-get install libboost-all-dev
 ```
-
-## TODO:
-
-* main mechanics of the game

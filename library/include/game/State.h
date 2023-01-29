@@ -2,7 +2,7 @@
 #include <string>
 
 class State {
-    unsigned int score;
+    unsigned score;
     float speed_seconds;
 
     bool m_is_finished;   // is the game over?
@@ -10,6 +10,7 @@ class State {
     bool m_should_move;   // is automatically set to true every 1 second. After the move it resets
 
     std::string input;
+    
 public:
     State();
 

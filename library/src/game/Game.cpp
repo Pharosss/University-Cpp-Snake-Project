@@ -26,7 +26,7 @@ void Game::init_game(InputManager* input) {
     auto food = std::make_shared<Food>(0, 0);
     attach_entity(food);
     move_food();
-};
+}
 
 // Input Callback
 
@@ -59,7 +59,7 @@ void Game::render(Renderer& r) {
     r.write(out);
 
     r.move_cursor(corner_x, corner_y + 2);
-    unsigned int inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
+    unsigned inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
     board.render(r);
 
     for(auto entity : entities) {
@@ -68,7 +68,6 @@ void Game::render(Renderer& r) {
     }
     r.refresh_screen();
 }
-
 
 //Entity List
 
@@ -87,12 +86,11 @@ void Game::detach_entity(std::shared_ptr<Entity> entity) {
     entities.erase(iter);
 }
 
-
 // Food
 
 void Game::move_food() {
 
-    unsigned int new_x, new_y,
+    unsigned new_x, new_y,
         w = board.get_width(),
         h = board.get_height();
 
@@ -105,7 +103,7 @@ void Game::move_food() {
     get_food()->move(new_x, new_y);
 }
 
-std::shared_ptr<Entity> Game::find_food_at(unsigned int x, unsigned int y) {
+std::shared_ptr<Entity> Game::find_food_at(unsigned x, unsigned y) {
     auto is_food_predicate = [](std::shared_ptr<Entity> ptr){ return ptr->is_food(); };
     auto iter = std::find_if(entities.begin(), entities.end(), is_food_predicate);
 
@@ -115,12 +113,12 @@ std::shared_ptr<Entity> Game::find_food_at(unsigned int x, unsigned int y) {
     return *iter;
 }
 
-
 // Getters and Setters
 
 Board& Game::get_board() {
     return board;
 }
+
 State& Game::get_state() {
     return state;
 }

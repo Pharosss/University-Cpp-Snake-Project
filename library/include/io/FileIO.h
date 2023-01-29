@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
 
-int loadHighscore(std::string path);
+int load_highscore(std::string path);
 
-int saveHighscore(std::string path, int in);
+int save_highscore(std::string path, int in);

@@ -18,7 +18,7 @@ void print_help_error() {
     return -1;\
     }
 
-CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, float default_speed, std::string highscore_path)
+CLIReader::CLIReader(unsigned default_width, unsigned default_height, float default_speed, std::string highscore_path)
   : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed), highscore_path(highscore_path) {
 
     // -h / -help: help page
@@ -44,7 +44,7 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
 
     // -H: show highscore
     argument_readers["-H"] = [](CLIReader* reader, std::string value) {
-        int score = loadHighscore(reader->highscore_path);
+        int score = load_highscore(reader->highscore_path);
         if (score == -1)
             std::cout<<"There is currently no highscore saved for this user.\n";
         else
@@ -56,7 +56,7 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
 
     // -c: clear highscore
     argument_readers["-c"] = [](CLIReader* reader, std::string value){
-        if(loadHighscore(reader->highscore_path) == -1) {
+        if(load_highscore(reader->highscore_path) == -1) {
             std::cout<<"There is no highscore to clear for current user!\n";
             reader->should_start = false;
             return -1;
@@ -153,7 +153,7 @@ void CLIReader::analyse_arguments(int argc, char *argv[]) {
 
     should_start = true;
     bool was_previous_flag = false;
-    for (unsigned int i = 1; i < argc; i++) {
+    for (unsigned i = 1; i < argc; i++) {
 
         // skip values after flags
         if (argv[i][0] != '-' && was_previous_flag) {
@@ -191,11 +191,11 @@ bool CLIReader::game_should_start() {
     return should_start;
 }
 
-unsigned int CLIReader::get_board_w() {
+unsigned CLIReader::get_board_w() {
     return board_w;
 }
 
-unsigned int CLIReader::get_board_h() {
+unsigned CLIReader::get_board_h() {
     return board_h;
 }
 

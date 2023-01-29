@@ -21,8 +21,8 @@ class Game : public InputObserver {
 
 public:
     Game(Board b, State s);
-    void init_game(InputManager* input);    //place snake and food etc.
 
+    void init_game(InputManager* input);    //place snake and food etc.
     void on_keepress(KeyCode code) override;
 
     void update(InputManager* input);
@@ -32,7 +32,7 @@ public:
     void detach_entity(std::shared_ptr<Entity> entity);
 
     void move_food();
-    std::shared_ptr<Entity> find_food_at(unsigned int x, unsigned int y);
+    std::shared_ptr<Entity> find_food_at(unsigned x, unsigned y);
 
     Board& get_board();
     State& get_state();

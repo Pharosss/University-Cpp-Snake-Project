@@ -6,16 +6,16 @@ public:
     void initialize();
     void terminate();
 
-    unsigned int get_viewport_width();
-    unsigned int get_viewport_height();
+    unsigned get_viewport_width();
+    unsigned get_viewport_height();
 
-    unsigned int get_x();
-    unsigned int get_y();
+    unsigned get_x();
+    unsigned get_y();
 
     void refresh_screen();
     void clear_screen();
 
-    void move_cursor(unsigned int x, unsigned int y);
+    void move_cursor(unsigned x, unsigned y);
     void move_relative(int x, int y);
 
     void write(char ch);
