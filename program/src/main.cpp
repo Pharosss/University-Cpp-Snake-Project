@@ -11,7 +11,7 @@
 #define DEFAULT_WIDTH 50
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_SPEED 0.15f
-#define HIGHSCORE_FILEPATH "highscore.txt"
+
 
 void renderer_demo() {
     Renderer r;
@@ -43,6 +43,8 @@ void renderer_demo() {
 }
 
 int main(int argc, char *argv[]) {
+
+    std::string highscore_path = std::getenv("HOME") + std::string("/.terminal_snake");
 
     // Read CLI arguments
     CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED);
@@ -91,7 +93,7 @@ int main(int argc, char *argv[]) {
     renderer.terminate();
 
     // Highscore Management
-    int old_hs = loadHighscore(HIGHSCORE_FILEPATH);
+    int old_hs = loadHighscore(highscore_path);
     int new_hs = game.get_state().get_score();
 
     if (new_hs <= old_hs || new_hs == 0) {
@@ -116,7 +118,7 @@ int main(int argc, char *argv[]) {
     if (resp == "no")
         return 0;
 
-    if(saveHighscore(HIGHSCORE_FILEPATH, new_hs)) {
+    if(saveHighscore(highscore_path, new_hs)) {
         std::cout<<"Error while writing the file!\n";
         return -1;
     }
