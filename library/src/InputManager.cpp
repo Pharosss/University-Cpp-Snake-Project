@@ -9,91 +9,62 @@ void InputManager::notify_observers(KeyCode code) {
         obs->on_keepress(code);
 }
 
-void InputManager::erase_codes(unsigned int n) {
-    while (n > 0) {
-        input_buffer.erase(input_buffer.begin());
-        n--;
-    }
-}
-
 InputManager::InputManager()
-    : input_fetching_thread(nullptr), input_processing_thread(nullptr), should_run(true), current_input(K_NULL) {}
+    : input_fetching_thread(nullptr), should_run(true), current_input(K_NULL) {}
+
+// W = 119 87 K_UP
+// S = 115 83 K_DOWN
+// A = 97 65 K_LEFT
+// D = 100 68 K_RIGHT
+
+// Tab = 9
+// Enter = 13
 
 // THREADS
 
-void InputManager::start_fetch_thread() {
+void InputManager::start_fetching_thread() {
     auto fetch_lambda = [](InputManager* i) {
         while(i->should_run) {
             int ch = getchar();
-            i->input_buffer.push_back(ch);
+            switch (ch) {
+                case 9:
+                    i->current_input = K_RETURN;
+                    break;
+                case 13:
+                    i->current_input = K_ENTER;
+                    break;
+                case 119:
+                case 87:
+                    i->current_input = K_UP;
+                    break;
+                case 115:
+                case 83:
+                    i->current_input = K_DOWN;
+                    break;
+                case 97:
+                case 65:
+                    i->current_input = K_LEFT;
+                    break;
+                case 100:
+                case 68:
+                    i->current_input = K_RIGHT;
+                    break;
+                default:
+                    i->current_input = K_NULL;
+                    break;
+            }
+
+            if (i->current_input != K_NULL)
+                i->notify_observers(i->current_input);
+            
         }
     };
 
     input_fetching_thread = std::make_shared<std::thread>(fetch_lambda, this);
     input_fetching_thread->detach();
 }
- 
-void InputManager::start_process_thread() {
-    auto process_lambda = [](InputManager* i) {
-        while (i->should_run) {
-            if (i->current_input != K_NULL)
-                i->notify_observers(i->current_input);
-            
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
 
-            int size = i->input_buffer.size();
-            if (size == 0) {
-                i->current_input = K_NULL;
-                continue;
-            }
-
-            // try to process multiple codes
-            bool is_multiple = false;
-            if (size >= 3 || i->input_buffer[0] == 27 || i->input_buffer[1] == 91) {
-                is_multiple = true;
-                switch (i->input_buffer[2]) {
-                    case 65:
-                        i->current_input = K_UP;
-                        break;
-                    case 66:
-                        i->current_input = K_DOWN;
-                        break;
-                    case 67:
-                        i->current_input = K_RIGHT;
-                        break;
-                    case 68:
-                        i->current_input = K_LEFT;
-                        break;
-                    default: {
-                        i->current_input = K_NULL;
-                        is_multiple = false;
-                        break;
-                    }
-                }
-            }
-
-            if (!is_multiple) { // process one code
-                switch (i->input_buffer[0]) {
-                    case 27:
-                        i->current_input = K_ESCAPE;
-                        break;
-                    default:
-                        i->current_input = K_NULL;
-                        break;
-                }
-                i->erase_codes(1);
-                continue;
-            }
-
-            i->erase_codes(3);
-        } 
-    };
-
-    input_processing_thread = std::make_shared<std::thread>(process_lambda, this);
-    input_processing_thread->detach();
-}
-
-void InputManager::stop_threads() {
+void InputManager::stop_fetching_thread() {
     should_run = false;
 }
 

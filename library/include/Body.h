@@ -7,7 +7,6 @@ class Body : public Entity {
 public:
     Body(unsigned int x, unsigned int y);
 
-    void update();
     void render(Renderer& renderer) override;
 
     void attach(std::shared_ptr<Body> next);
@@ -16,4 +15,6 @@ public:
     bool is_at_recursive(unsigned int x, unsigned int y);
     Body* get_tail_recursive();
     void move_recursive(unsigned int x, unsigned int y);
+
+    std::shared_ptr<Body> get_next();
 };

@@ -3,6 +3,11 @@
 
 #include "Renderer.h"
 #include "InputManager.h"
+#include "CLIReader.h"
+
+#define DEFAULT_WIDTH 50
+#define DEFAULT_HEIGHT 10
+#define DEFAULT_SPEED 0.15f
 
 void renderer_demo() {
     Renderer r;
@@ -33,31 +38,47 @@ void renderer_demo() {
     r.terminate();
 }
 
-int main() {
-    
+int main(int argc, char *argv[]) {
+
+    // Read CLI arguments
+    CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED);
+    cli.analyse_arguments(argc, argv);
+    if (!cli.game_should_start())
+        return 0;
+
     // Renderer Init
     Renderer renderer;
     renderer.initialize();
 
     // InputManager Init
     InputManager input;
-    input.start_fetch_thread();
-    input.start_process_thread();
+    input.start_fetching_thread();
 
     // Game Init
-    Board board(30, 8);
+    Board board(cli.get_board_w(), cli.get_board_h());
     Game game(board, State());
-    game.init_game();
-    input.add_observer(&game);
+    game.get_state().set_speed(cli.get_speed_seconds());
+    game.init_game(&input);
+
+    // Timer Init
+    auto timer_lambda = [](State* state) {
+        while (!state->is_finished()) {
+            unsigned int delta = state->get_speed() * 1000;
+            std::this_thread::sleep_for(std::chrono::milliseconds(delta));
+            state->set_should_move(true);
+        }
+    };
+    std::thread timer_thread(timer_lambda, &game.get_state());
+    timer_thread.detach();
 
     // Game Loop
     while (!(game.get_state().is_finished())) {
-        game.update(input);
+        game.update(&input);
         game.render(renderer);
     }
     
     // End Game
-    input.stop_threads();
+    input.stop_fetching_thread();
     renderer.clear_screen();
     renderer.refresh_screen();
 

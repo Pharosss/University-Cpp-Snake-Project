@@ -12,6 +12,7 @@ set(SOURCE_FILES
     include/Game.h
     include/Head.h
     include/InputManager.h
+    include/CLIReader.h
     include/Renderer.h
     include/State.h
     src/Board.cpp
@@ -22,6 +23,7 @@ set(SOURCE_FILES
     src/Game.cpp
     src/Head.cpp
     src/InputManager.cpp
+    src/CLIReader.cpp
     src/State.cpp
     src/Renderer.cpp
 )

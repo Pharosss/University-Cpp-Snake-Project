@@ -4,9 +4,6 @@
 Body::Body(unsigned int x, unsigned int y)
     : Entity(x, y), next(nullptr) {}
 
-void Body::update() {
-    // here place update
-};
 void Body::render(Renderer& r) {
     r.write('&');
 };
@@ -41,4 +38,8 @@ void Body::move_recursive(unsigned int x, unsigned int y) {
     move(x, y);
     if (!is_tail())
         next->move_recursive(new_x, new_y);
+};
+
+std::shared_ptr<Body> Body::get_next() {
+    return next;
 };

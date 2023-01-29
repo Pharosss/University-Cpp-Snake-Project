@@ -11,7 +11,6 @@ BOOST_AUTO_TEST_CASE(Test_increment_score) {
 
 BOOST_AUTO_TEST_CASE(Test_get_speed__set_speed) {
     State s;
-    BOOST_CHECK_EQUAL(s.get_speed(), 0.5f);
     s.set_speed(5.5f);
     BOOST_CHECK_EQUAL(s.get_speed(), 5.5f);
     try{

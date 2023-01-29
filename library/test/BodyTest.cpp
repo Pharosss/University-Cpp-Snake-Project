@@ -1,6 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include "Body.h" 
 #include <memory>
+
 BOOST_AUTO_TEST_SUITE(BodyTest)
 
 BOOST_AUTO_TEST_CASE(Test_is_tail__attach) {
