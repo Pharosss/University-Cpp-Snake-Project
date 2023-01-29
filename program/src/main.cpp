@@ -19,7 +19,7 @@ void renderer_demo() {
 
     r.write("Hello Ncurses!");
     r.write(" Screen dimensions: ");
-    std::string dims = std::to_string(r.get_width()) + " x " + std::to_string(r.get_height());
+    std::string dims = std::to_string(r.get_viewport_width()) + " x " + std::to_string(r.get_viewport_height());
     r.write(dims);
     r.move_cursor(0, 2);
     r.write("You can move to a discrete location");
@@ -55,6 +55,14 @@ int main(int argc, char *argv[]) {
     // Renderer Init
     Renderer renderer;
     renderer.initialize();
+
+    // Viewport Size check
+    while(cli.get_board_w() + 3 > renderer.get_viewport_width() ||
+          cli.get_board_h() + 4 > renderer.get_viewport_height()) {
+        renderer.terminate();
+        std::cout<<"Error! Game board is too big. Please resize the board or the viewport!\n";
+        return 0;
+    }
 
     // InputManager Init
     InputManager input;
@@ -97,8 +105,7 @@ int main(int argc, char *argv[]) {
     int new_hs = game.get_state().get_score();
 
     if (new_hs <= old_hs || new_hs == 0) {
-        std::cout << "Your score was: " << new_hs;
-        getchar();
+        std::cout << "Your score was: " << new_hs << '\n';
         return 0;
     }
 

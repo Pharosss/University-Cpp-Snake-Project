@@ -16,12 +16,12 @@ void Renderer::terminate() {
     endwin();
 }
 
-unsigned int Renderer::get_width() {
+unsigned int Renderer::get_viewport_width() {
     unsigned int w, h;
     getmaxyx(stdscr, h, w);
     return w;
 }
-unsigned int Renderer::get_height() {
+unsigned int Renderer::get_viewport_height() {
     unsigned int w, h;
     getmaxyx(stdscr, h, w);
     return h;

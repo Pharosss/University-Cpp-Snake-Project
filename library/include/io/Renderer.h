@@ -6,8 +6,8 @@ public:
     void initialize();
     void terminate();
 
-    unsigned int get_width();
-    unsigned int get_height();
+    unsigned int get_viewport_width();
+    unsigned int get_viewport_height();
 
     unsigned int get_x();
     unsigned int get_y();
