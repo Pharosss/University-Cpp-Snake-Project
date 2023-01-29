@@ -1,4 +1,4 @@
-#include "Renderer.h"
+#include "io/Renderer.h"
 #include <ncurses.h>
 #include <stdexcept>
 

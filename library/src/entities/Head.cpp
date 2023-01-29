@@ -1,8 +1,10 @@
-#include "Head.h"
-#include "Renderer.h"
-#include "Game.h"
-#include "Food.h"
-#include "InputManager.h"
+#include "entities/Head.h"
+#include "io/Renderer.h"
+
+#include "game/Game.h"
+#include "entities/Food.h"
+#include "io/InputManager.h"
+
 #include <iostream>
 
 Head::Head(unsigned int x, unsigned int y, Game* g)

@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "game/Game.h"
 
 #include <algorithm>
 #include <string>
@@ -6,13 +6,11 @@
 #include <cassert>
 #include <cstdint>
 
-#include "Entity.h"
-#include "Renderer.h"
-#include "InputManager.h"
+#include "io/Renderer.h"
+#include "io/InputManager.h"
 
-#include "Food.h"
-#include "Body.h"
-#include "Head.h"
+#include "entities/Food.h"
+#include "entities/Head.h"
 
 Game::Game(Board b, State s)
  : board(b), state(s) {}

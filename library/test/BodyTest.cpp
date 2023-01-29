@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "Body.h" 
+#include "entities/Body.h" 
 #include <memory>
 
 BOOST_AUTO_TEST_SUITE(BodyTest)

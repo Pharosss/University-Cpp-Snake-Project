@@ -1,5 +1,5 @@
-#include "Food.h"
-#include "Renderer.h"
+#include "entities/Food.h"
+#include "io/Renderer.h"
 
 Food::Food(unsigned x, unsigned y)
  : Entity(x, y) {};

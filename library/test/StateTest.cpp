@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "State.h" 
+#include "game/State.h" 
 BOOST_AUTO_TEST_SUITE(StateTest)
 
 BOOST_AUTO_TEST_CASE(Test_increment_score) {

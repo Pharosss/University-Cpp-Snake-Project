@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "Body.h"
 
 class Game;

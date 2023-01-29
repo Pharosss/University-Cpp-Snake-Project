@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "Food.h"
+#include "entities/Food.h"
 BOOST_AUTO_TEST_SUITE(FoodTest)
 
 BOOST_AUTO_TEST_CASE(Test_is_food) {

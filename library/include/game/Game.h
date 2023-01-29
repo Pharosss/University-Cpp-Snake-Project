@@ -5,7 +5,7 @@
 
 #include "Board.h"
 #include "State.h"
-#include "Input.h"
+#include "io/Input.h"
 
 class Entity;
 class Food;

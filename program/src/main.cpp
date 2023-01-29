@@ -1,12 +1,12 @@
 #include <chrono>
 #include <iostream>
 
-#include "Game.h"
+#include "game/Game.h"
 
-#include "Renderer.h"
-#include "InputManager.h"
-#include "CLIReader.h"
-#include "FileIO.h"
+#include "io/Renderer.h"
+#include "io/InputManager.h"
+#include "io/CLIReader.h"
+#include "io/FileIO.h"
 
 #define DEFAULT_WIDTH 50
 #define DEFAULT_HEIGHT 10

@@ -1,5 +1,4 @@
 #pragma once
-
 #include <string>
 
 int loadHighscore(std::string path);

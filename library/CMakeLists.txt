@@ -4,28 +4,34 @@ project(Library)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
-    include/Board.h
-    include/Body.h
-    include/Entity.h
-    include/FileIO.h
-    include/Food.h
-    include/Game.h
-    include/Head.h
-    include/InputManager.h
-    include/CLIReader.h
-    include/Renderer.h
-    include/State.h
-    src/Board.cpp
-    src/Body.cpp
-    src/Entity.cpp
-    src/FileIO.cpp
-    src/Food.cpp
-    src/Game.cpp
-    src/Head.cpp
-    src/InputManager.cpp
-    src/CLIReader.cpp
-    src/State.cpp
-    src/Renderer.cpp
+        include/entities/Body.h
+        include/entities/Entity.h
+        include/entities/Food.h
+        include/entities/Head.h
+
+        include/game/Board.h
+        include/game/Game.h
+        include/game/State.h
+        
+        include/io/CLIReader.h
+        include/io/FileIO.h
+        include/io/Input.h
+        include/io/InputManager.h
+        include/io/Renderer.h
+
+        src/entities/Body.cpp
+        src/entities/Entity.cpp
+        src/entities/Food.cpp
+        src/entities/Head.cpp
+
+        src/game/Board.cpp
+        src/game/Game.cpp
+        src/game/State.cpp
+        
+        src/io/CLIReader.cpp
+        src/io/FileIO.cpp
+        src/io/InputManager.cpp
+        src/io/Renderer.cpp
 )
 add_library(Library ${SOURCE_FILES})
 

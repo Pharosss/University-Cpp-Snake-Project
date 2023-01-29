@@ -1,8 +1,8 @@
 #include <boost/test/unit_test.hpp>
-#include "Head.h"
+#include "entities/Head.h"
 #include <memory>
 
-#include "Body.h"
+#include "entities/Body.h"
 BOOST_AUTO_TEST_SUITE(HeadTest)
 
 BOOST_AUTO_TEST_CASE(Test_attach) {

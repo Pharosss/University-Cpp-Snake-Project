@@ -1,8 +1,8 @@
 #include <map>
 #include <stdexcept>
 
-#include "InputManager.h"
-#include "Input.h"
+#include "io/InputManager.h"
+#include "io/Input.h"
 
 void InputManager::notify_observers(KeyCode code) {
     for (auto obs : observers)

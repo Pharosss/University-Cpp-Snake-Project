@@ -1,5 +1,5 @@
-#include "Body.h"
-#include "Renderer.h"
+#include "entities/Body.h"
+#include "io/Renderer.h"
 
 Body::Body(unsigned int x, unsigned int y)
     : Entity(x, y), next(nullptr) {}

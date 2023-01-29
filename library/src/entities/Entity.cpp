@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include "entities/Entity.h"
 
 Entity::Entity(unsigned int x, unsigned int y)
  : x(x), y(y) {}
