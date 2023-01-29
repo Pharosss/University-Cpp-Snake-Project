@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     std::string highscore_path = std::getenv("HOME") + std::string("/.terminal_snake");
 
     // Read CLI arguments
-    CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED);
+    CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED, highscore_path);
     cli.analyse_arguments(argc, argv);
     if (!cli.game_should_start())
         return 0;

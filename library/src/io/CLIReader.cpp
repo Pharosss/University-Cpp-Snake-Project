@@ -3,6 +3,8 @@
 #include <string>
 #include <memory>
 
+#include "io/FileIO.h"
+
 void print_help_error() {
     std::cout<<"Please write -h or -help to access teh help page\n";
 }
@@ -16,8 +18,8 @@ void print_help_error() {
     return -1;\
     }
 
-CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, float default_speed)
-  : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed) {
+CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, float default_speed, std::string highscore_path)
+  : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed), highscore_path(highscore_path) {
 
     // -h / -help: help page
     argument_readers["-h"] = argument_readers["-help"] = [](CLIReader* reader, std::string value) {
@@ -25,7 +27,7 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
         << "@ Lodz University of Technology\n"
         << '\n'
         << "Controls:\n"
-        << "WASD - change direction of the snake"
+        << "WASD - change direction of the snake\n"
         << "Tab - exit the game\n"  // REMEMBER! Change it after implementing menu
         << '\n'
         << "Available options:\n"
@@ -42,24 +44,42 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
 
     // -H: show highscore
     argument_readers["-H"] = [](CLIReader* reader, std::string value) {
-        std::cout << "Your highscore is: " << 0 << '\n';
+        int score = loadHighscore(reader->highscore_path);
+        if (score == -1)
+            std::cout<<"There is currently no highscore saved for this user.\n";
+        else
+            std::cout << "Your highscore is: " << score << '\n';
+        
         reader->should_start = false;
         return -1;
     };
 
     // -c: clear highscore
     argument_readers["-c"] = [](CLIReader* reader, std::string value){
+        if(loadHighscore(reader->highscore_path) == -1) {
+            std::cout<<"There is no highscore to clear for current user!\n";
+            reader->should_start = false;
+            return -1;
+        }
+
         std::cout<<"Do you really want to clear the highscore? Write [yes/no].\n";
         std::string response = "";
         while (response != "yes" && response != "no")
             std::cin >> response;
 
-        if (response == "yes") {
-            // clear the highscore
+        if (response == "no") {
+            std::cout<<"Highscore has not been cleared.\n";
+            reader->should_start = false;
+            return -1;
+        }
+        
+        try {
+            remove(reader->highscore_path.c_str());
             std::cout << "Highscore cleared!\n";
         }
-        else if (response == "no")
-            std::cout<<"Highscore has not been cleared.\n";
+        catch(std::exception e) {
+            std::cout<<"Error! Highscore could not be cleared!\n";
+        }
         
         reader->should_start = false;
         return -1;
@@ -132,10 +152,16 @@ CLIReader::CLIReader(unsigned int default_width, unsigned int default_height, fl
 void CLIReader::analyse_arguments(int argc, char *argv[]) {
 
     should_start = true;
+    bool was_previous_flag = false;
     for (unsigned int i = 1; i < argc; i++) {
-        if (argv[i][0] != '-')
+
+        // skip values after flags
+        if (argv[i][0] != '-' && was_previous_flag) {
+            was_previous_flag = false;
             continue;
+        }
         
+        // incorrect flags and values not following flags
         if (argument_readers.find(argv[i]) == argument_readers.end()) {
             std::cout<<"Error! Unrecognized parameters.\n";
             print_help_error();
@@ -143,10 +169,12 @@ void CLIReader::analyse_arguments(int argc, char *argv[]) {
             return;
         }
         
-        // forbid values starting with '-'
+        // clear values starting with '-'
         std::string value = "";
         if (i+1 < argc && argv[i+1][0] != '-')  
             value = argv[i+1];
+        
+        was_previous_flag = true;
 
         // readers can stop further execution
         if (argument_readers.at(argv[i])(this, value) == -1) {
