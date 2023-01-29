@@ -1,8 +1,5 @@
 #include <chrono>
 #include "Game.h"
-#include <fstream>
-#include<iostream>
-#include <cstdio>
 
 #include "Renderer.h"
 #include "InputManager.h"
@@ -37,39 +34,7 @@ void renderer_demo() {
 }
 
 int main() {
-    // creating a State object to get to know the score
-    State state;
-    // working with a file
-    std::ifstream ifile("file.txt");
-    int number;
-
-    // using exception
-    try
-    {
-        if(ifile.is_open())
-        {
-            ifile >> number;
-            if(number!=NULL)
-                std::cout<<"Your previous score: "<< number<<'\n';
-
-            if(state.get_score()>number)
-            {
-                number=state.get_score();
-                std::cout<<"You current score: "<< number <<'\n';
-                ifile.close();
-            }
-        }
-        
-        else
-        {
-            throw std::runtime_error( "Error occured while opening the file!" );
-        }
-    }
-    catch(std::runtime_error& e)
-    {
-        std::cout<<"Error! Cannot open the file.";
-    }
-
+    
     // Renderer Init
     Renderer renderer;
     renderer.initialize();
