@@ -10,10 +10,6 @@ void Entity::render(Renderer& renderer) {
     // intentionally left blank
 }
 
-bool Entity::is_food() {
-    return false;
-}
-
 void Entity::move(unsigned x, unsigned y) {
     this->x = x; this->y = y;
 }

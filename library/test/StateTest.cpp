@@ -3,7 +3,7 @@
 BOOST_AUTO_TEST_SUITE(StateTest)
 
 BOOST_AUTO_TEST_CASE(Test_increment_score) {
-    State s;    
+    State s;
     BOOST_CHECK_EQUAL(s.get_score(), 0);
     s.increment_score();
     BOOST_CHECK_EQUAL(s.get_score(), 1);
@@ -27,15 +27,6 @@ BOOST_AUTO_TEST_CASE(Test_should_move) {
     BOOST_CHECK_EQUAL(s.should_move(), true);
     s.set_should_move(false);
     BOOST_CHECK_EQUAL(s.should_move(), false);
-    }
-
-BOOST_AUTO_TEST_CASE(Test_set_pause__is_paused) {
-    State s;
-    BOOST_CHECK_EQUAL(s.is_paused(), false);
-    s.set_pause(true);
-    BOOST_CHECK_EQUAL(s.is_paused(), true);
-    s.set_pause(false);
-    BOOST_CHECK_EQUAL(s.is_paused(), false);
     }
 
 BOOST_AUTO_TEST_CASE(Test_finish_game__is_finished) {

@@ -23,6 +23,4 @@ public:
 
     void add_observer(InputObserver* obs);
     void remove_observer(InputObserver* obs);
-
-    KeyCode get_input();
 };

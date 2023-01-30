@@ -7,7 +7,3 @@ Food::Food(unsigned x, unsigned y)
 void Food::render(Renderer& r) {
     r.write('@');
 }
-
-bool Food::is_food() {
-    return true;
-}

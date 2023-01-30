@@ -103,16 +103,6 @@ void Game::move_food() {
     get_food()->move(new_x, new_y);
 }
 
-std::shared_ptr<Entity> Game::find_food_at(unsigned x, unsigned y) {
-    auto is_food_predicate = [](std::shared_ptr<Entity> ptr){ return ptr->is_food(); };
-    auto iter = std::find_if(entities.begin(), entities.end(), is_food_predicate);
-
-    if (iter == entities.end())
-        return nullptr;
-
-    return *iter;
-}
-
 // Getters and Setters
 
 Board& Game::get_board() {

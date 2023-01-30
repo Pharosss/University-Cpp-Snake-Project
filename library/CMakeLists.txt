@@ -47,7 +47,6 @@ set(SOURCE_TEST_FILES
         test/master.cpp
         test/BoardTest.cpp
         test/BodyTest.cpp
-        test/FoodTest.cpp
         test/GameTest.cpp
         test/HeadTest.cpp
         test/StateTest.cpp

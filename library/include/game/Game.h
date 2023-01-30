@@ -32,7 +32,6 @@ public:
     void detach_entity(std::shared_ptr<Entity> entity);
 
     void move_food();
-    std::shared_ptr<Entity> find_food_at(unsigned x, unsigned y);
 
     Board& get_board();
     State& get_state();

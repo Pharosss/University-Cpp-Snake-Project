@@ -13,8 +13,6 @@ public:
     virtual void update(InputManager* input);
     virtual void render(Renderer& renderer);
 
-    virtual bool is_food();
-
     void move(unsigned x, unsigned y);
     unsigned get_x();
     unsigned get_y();
