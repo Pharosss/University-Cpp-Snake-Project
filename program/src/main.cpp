@@ -63,16 +63,12 @@ int main(int argc, char *argv[]) {
     
     // End Game
     input.stop_fetching_thread();
-    renderer.clear_screen();
-    renderer.refresh_screen();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
     renderer.terminate();
 
     // Highscore Management
-    int old_hs = Files::load_highscore(highscore_path);
-    int new_hs = game.get_state().get_score();
+    int old_hs = Files::load_highscore(highscore_path),
+        new_hs = game.get_state().get_score();
 
     if (new_hs <= old_hs || new_hs == 0) {
         std::cout << "Your score was: " << new_hs << '\n';
