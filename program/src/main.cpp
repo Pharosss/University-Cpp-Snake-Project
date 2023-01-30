@@ -12,36 +12,6 @@
 #define DEFAULT_HEIGHT 10
 #define DEFAULT_SPEED 0.15f
 
-
-void renderer_demo() {
-    Renderer r;
-    r.initialize();
-
-    r.write("Hello Ncurses!");
-    r.write(" Screen dimensions: ");
-    std::string dims = std::to_string(r.get_viewport_width()) + " x " + std::to_string(r.get_viewport_height());
-    r.write(dims);
-    r.move_cursor(0, 2);
-    r.write("You can move to a discrete location");
-    r.move_relative(-1, 2);
-    r.write("Or to a relative one ...");
-    r.write("Always remember to refresh_screen() at the end!");
-    r.refresh_screen();
-    getchar();
-
-    r.clear_screen();
-    try {
-        r.move_cursor(-1, -2);
-    }
-    catch(std::exception e) {
-        r.write("Moving out of the bounds throws exception!");
-    }
-    r.refresh_screen();
-    getchar();
-
-    r.terminate();
-}
-
 int main(int argc, char *argv[]) {
 
     std::string highscore_path = std::getenv("HOME") + std::string("/.terminal_snake");
