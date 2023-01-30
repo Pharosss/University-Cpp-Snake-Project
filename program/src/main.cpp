@@ -101,7 +101,7 @@ int main(int argc, char *argv[]) {
     renderer.terminate();
 
     // Highscore Management
-    int old_hs = load_highscore(highscore_path);
+    int old_hs = Files::load_highscore(highscore_path);
     int new_hs = game.get_state().get_score();
 
     if (new_hs <= old_hs || new_hs == 0) {
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
     if (resp == "no")
         return 0;
 
-    if(save_highscore(highscore_path, new_hs)) {
+    if(Files::save_highscore(highscore_path, new_hs)) {
         std::cout<<"Error while writing the file!\n";
         return -1;
     }

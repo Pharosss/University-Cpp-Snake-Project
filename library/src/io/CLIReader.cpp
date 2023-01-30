@@ -44,7 +44,7 @@ CLIReader::CLIReader(unsigned default_width, unsigned default_height, float defa
 
     // -H: show highscore
     argument_readers["-H"] = [](CLIReader* reader, std::string value) {
-        int score = load_highscore(reader->highscore_path);
+        int score = Files::load_highscore(reader->highscore_path);
         if (score == -1)
             std::cout<<"There is currently no highscore saved for this user.\n";
         else
@@ -56,7 +56,7 @@ CLIReader::CLIReader(unsigned default_width, unsigned default_height, float defa
 
     // -c: clear highscore
     argument_readers["-c"] = [](CLIReader* reader, std::string value){
-        if(load_highscore(reader->highscore_path) == -1) {
+        if(Files::load_highscore(reader->highscore_path) == -1) {
             std::cout<<"There is no highscore to clear for current user!\n";
             reader->should_start = false;
             return -1;
