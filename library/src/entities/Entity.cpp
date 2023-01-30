@@ -1,7 +1,8 @@
 #include "entities/Entity.h"
+#include "Entity.h"
 
-Entity::Entity(unsigned x, unsigned y)
- : x(x), y(y) {}
+Entity::Entity(uvec2 pos)
+ : pos(pos) {}
 
 void Entity::update(InputManager* input) {
     // intentionally left blank
@@ -10,14 +11,19 @@ void Entity::render(Renderer& renderer) {
     // intentionally left blank
 }
 
-void Entity::move(unsigned x, unsigned y) {
-    this->x = x; this->y = y;
+void Entity::move(uvec2 pos) {
+    this->pos=pos;
+    //this->x = x; this->y = y;
+}
+uvec2 Entity::get_pos()
+{
+    return pos;
 }
 
-unsigned Entity::get_x() {
+/* unsigned Entity::get_x() {
     return x;
 }
 
 unsigned Entity::get_y() {
     return y;
-}
+} */

@@ -38,7 +38,7 @@ void Game::on_keepress(KeyCode code) {
 // Update and Render
 
 void Game::update(InputManager* input) {
-    if (!board.is_position_valid(entities[0]->get_x(), entities[0]->get_y()))
+    if (!board.is_position_valid(entities[0]->get_pos()/* entities[0]->get_x(), entities[0]->get_y()*/) )
         state.finish_game();
 
     entities[0]->update(input);
@@ -52,14 +52,17 @@ void Game::render(Renderer& r) {
     header << "Score: " << std::to_string(state.get_score());
     std::string out = header.str();
     
-    auto corner_x = (r.get_viewport_width() - board.get_width())/2 - 1;
-    auto corner_y = (r.get_viewport_height() - board.get_height() - 2)/2 - 1;
+    /* auto corner_x = (r.get_viewport_width() - board.get_width())/2 - 1;
+    auto corner_y = (r.get_viewport_height() - board.get_height() - 2)/2 - 1; */
+    auto corner = (r.get_viewport_pos() - board.get_pos())/2 - 1;
+   // auto corner_y = (r.get_viewport_pos().y - board.get_pos().y - 2)/2 - 1;
 
-    r.move_cursor(corner_x, corner_y);
+    r.move_cursor(corner);
     r.write(out);
 
     r.move_cursor(corner_x, corner_y + 2);
-    unsigned inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
+    //unsigned inside_board_x = r.get_x() + 1, inside_board_y = r.get_y() + 1;
+    //uvec2 inside_board_x = r.get_pos().x +1, inside_board_y = r.get_pos().y +1;
     board.render(r);
 
     for(auto entity : entities) {
@@ -90,13 +93,16 @@ void Game::detach_entity(std::shared_ptr<Entity> entity) {
 
 void Game::move_food() {
 
-    unsigned new_x, new_y,
+/*     unsigned new_x, new_y,
         w = board.get_width(),
-        h = board.get_height();
+        h = board.get_height(); */
+        uvec2 new_size,
+        size=board.get_pos();
 
     do {
-        new_x = std::rand() % w;
-        new_y = std::rand() % h;
+        /* new_x = std::rand() % w;
+        new_y = std::rand() % h; */
+        new_size=std::rand() % size;
     } while (get_head()->is_at_recursive(new_x, new_y));
 
 
