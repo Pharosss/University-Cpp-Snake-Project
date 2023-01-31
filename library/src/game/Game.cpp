@@ -12,6 +12,13 @@
 #include "entities/Food.h"
 #include "entities/Head.h"
 
+// Input Callback
+
+void Game::on_keepress(KeyCode code) {
+    if (code == K_RETURN)
+        state.finish_game();
+}
+
 Game::Game(Board b, State s)
  : board(b), state(s) {}
 
@@ -26,13 +33,6 @@ void Game::init_game(InputManager* input) {
     auto food = std::make_shared<Food>(uvec2(0, 0));
     attach_entity(food);
     move_food();
-}
-
-// Input Callback
-
-void Game::on_keepress(KeyCode code) {
-    if (code == K_RETURN)
-        state.finish_game();
 }
 
 // Update and Render

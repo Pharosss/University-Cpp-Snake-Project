@@ -7,6 +7,19 @@
 
 #include <iostream>
 
+void Head::on_keepress(KeyCode code) {
+    if (code < K_UP || code > K_RIGHT)
+        return;
+
+    if (last_arrow == K_UP && code == K_DOWN ||
+        last_arrow == K_DOWN && code == K_UP ||
+        last_arrow == K_LEFT && code == K_RIGHT ||
+        last_arrow == K_RIGHT && code == K_LEFT)
+        return;
+
+    new_arrow = code;
+}
+
 Head::Head(uvec2 pos, Game* g)
  : Body(pos), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
 
@@ -47,17 +60,4 @@ void Head::move_recursive(uvec2 pos) {
     if (!is_tail() && get_next()->is_at_recursive(now_pos))
         game->get_state().finish_game();
     
-}
-
-void Head::on_keepress(KeyCode code) {
-    if (code < K_UP || code > K_RIGHT)
-        return;
-
-    if (last_arrow == K_UP && code == K_DOWN ||
-        last_arrow == K_DOWN && code == K_UP ||
-        last_arrow == K_LEFT && code == K_RIGHT ||
-        last_arrow == K_RIGHT && code == K_LEFT)
-        return;
-
-    new_arrow = code;
 }

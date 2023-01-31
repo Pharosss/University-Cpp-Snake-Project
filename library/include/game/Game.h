@@ -19,11 +19,12 @@ class Game : public InputObserver {
     State state;
     std::vector<std::shared_ptr<Entity>> entities;
 
+    void on_keepress(KeyCode code) override;
+    
 public:
     Game(Board b, State s);
 
     void init_game(InputManager* input);    //place snake and food etc.
-    void on_keepress(KeyCode code) override;
 
     void update(InputManager* input);
     void render(Renderer* renderer);
