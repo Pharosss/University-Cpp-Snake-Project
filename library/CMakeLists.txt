@@ -43,6 +43,7 @@ target_include_directories(Library PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 set(CURSES_USE_NCURSES TRUE)
 find_package(Curses REQUIRED)
+find_package(Threads REQUIRED)
 
 set(SOURCE_TEST_FILES
         test/master.cpp
@@ -63,6 +64,7 @@ add_executable (Test ${SOURCE_TEST_FILES})
 
 target_link_libraries(Library
         ${CURSES_LIBRARIES}
+        Threads::Threads
 )
 
 target_link_libraries (Test
