@@ -28,7 +28,7 @@ CLIReader::CLIReader(uvec2 default_size, float default_speed, std::string highsc
         << '\n'
         << "Controls:\n"
         << "WASD - change direction of the snake\n"
-        << "Tab - exit the game\n"  // REMEMBER! Change it after implementing menu
+        << "Tab - exit the game\n"
         << '\n'
         << "Available options:\n"
         << "-b - change game board dimensions (pattern: 'UINTxUINT' i.e. '-b 40x20').\n"

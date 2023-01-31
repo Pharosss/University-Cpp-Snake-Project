@@ -13,8 +13,8 @@ public:
     void refresh_screen();
     void clear_screen();
 
-    void move_cursor(uvec2 pos/* unsigned x, unsigned y */);
-    void move_relative(vec2 pos/* int x, int y */);
+    void move_cursor(uvec2 pos);
+    void move_relative(vec2 pos);
 
     void write(char ch);
     void write(const char* str);

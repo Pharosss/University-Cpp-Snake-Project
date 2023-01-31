@@ -9,7 +9,6 @@ int Files::load_highscore(std::string path)
     std::ifstream ifile(path);
     int number = -1;
 
-    // using exception
     try {
         if(!ifile.is_open())
             throw std::runtime_error( "Error occured while opening the file!" );
@@ -17,7 +16,7 @@ int Files::load_highscore(std::string path)
         ifile >> number;
     }
     catch(std::runtime_error& e) {
-        //std::cout<<"Error! Cannot open the file.";
+        
     }
 
     ifile.close();
@@ -34,8 +33,7 @@ int Files::save_highscore(std::string path, int in)
         ifile << in;
     }
     catch(std::runtime_error& e) {
-        //std::cout<<"Error! Cannot open the file.";
-        out = -1;
+        int out = -1;
     }
     ifile.close();
     return out;

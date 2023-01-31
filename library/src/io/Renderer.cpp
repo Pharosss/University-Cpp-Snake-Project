@@ -5,7 +5,7 @@
 void Renderer::initialize() {
     initscr();  // lib init
 
-    raw();               // disable line buffering (raw() puts special chars on the screen)
+    raw();                  // disable line buffering (raw() puts special chars on the screen)
 	keypad(stdscr, TRUE);   // enable arrow input
     curs_set(0);            // comment this to view cursor for debug
 	noecho();               // disable echoing input

@@ -14,11 +14,9 @@ InputManager::InputManager()
 
 // W = 119 87 K_UP
 // S = 115 83 K_DOWN
-// A = 97 65 K_LEFT
+// A = 97  65 K_LEFT
 // D = 100 68 K_RIGHT
-
 // Tab = 9
-// Enter = 13
 
 // THREADS
 
@@ -29,9 +27,6 @@ void InputManager::start_fetching_thread() {
             switch (ch) {
                 case 9:
                     i->current_input = K_RETURN;
-                    break;
-                case 13:
-                    i->current_input = K_ENTER;
                     break;
                 case 119:
                 case 87:
@@ -56,7 +51,6 @@ void InputManager::start_fetching_thread() {
 
             if (i->current_input != K_NULL)
                 i->notify_observers(i->current_input);
-            
         }
     };
 
