@@ -18,8 +18,8 @@ void print_help_error() {
     return -1;\
     }
 
-CLIReader::CLIReader(unsigned default_width, unsigned default_height, float default_speed, std::string highscore_path)
-  : should_start(false), board_w(default_width), board_h(default_height), speed_seconds(default_speed), highscore_path(highscore_path) {
+CLIReader::CLIReader(uvec2 default_size, float default_speed, std::string highscore_path)
+  : should_start(false), board_size(default_size), speed_seconds(default_speed), highscore_path(highscore_path) {
 
     // -h / -help: help page
     argument_readers["-h"] = argument_readers["-help"] = [](CLIReader* reader, std::string value) {
@@ -95,14 +95,13 @@ CLIReader::CLIReader(unsigned default_width, unsigned default_height, float defa
             END_READERS("Invalid board size argument. Use pattern UINTxUINT i.e. '-b 40x20'");
 
         try {
-            int b_width = std::stoul(value.substr(0, x_index)),
-                b_height = std::stoul(value.substr(x_index + 1, value.size()));
+            uvec2 new_board_size((unsigned)std::stoul(value.substr(0, x_index)),
+                (unsigned)std::stoul(value.substr(x_index + 1, value.size())));
             
-            if (b_width < 1 || b_height < 1)
+            if (new_board_size.x < 1 || new_board_size.y < 1)
                 END_READERS("Invalid board size argument. Board size has to be at least 1x1");
 
-            reader->board_w = b_width;
-            reader->board_h = b_height;
+            reader->board_size = new_board_size;
         } catch(std::invalid_argument& e) {
             END_READERS("Invalid board size argument. Use pattern UINTxUINT i.e. '-b 40x20'")
         }
@@ -191,12 +190,8 @@ bool CLIReader::game_should_start() {
     return should_start;
 }
 
-unsigned CLIReader::get_board_w() {
-    return board_w;
-}
-
-unsigned CLIReader::get_board_h() {
-    return board_h;
+uvec2 CLIReader::get_board_size(){
+    return board_size;
 }
 
 float CLIReader::get_speed_seconds() {

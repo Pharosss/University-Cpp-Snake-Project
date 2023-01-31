@@ -7,12 +7,7 @@ public:
     void initialize();
     void terminate();
 
-    /* unsigned get_viewport_width();
-    unsigned get_viewport_height();
- */
-    uvec2 get_viewport_pos();
-    /* unsigned get_x();
-    unsigned get_y(); */
+    uvec2 get_viewport_size();
     uvec2 get_pos();
 
     void refresh_screen();

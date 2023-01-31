@@ -8,8 +8,7 @@
 #include "io/CLIReader.h"
 #include "io/FileIO.h"
 
-#define DEFAULT_WIDTH 50
-#define DEFAULT_HEIGHT 10
+#define DEFAULT_SIZE uvec2(50, 10)
 #define DEFAULT_SPEED 0.15f
 
 int main(int argc, char *argv[]) {
@@ -17,7 +16,7 @@ int main(int argc, char *argv[]) {
     std::string highscore_path = std::getenv("HOME") + std::string("/.terminal_snake");
 
     // Read CLI arguments
-    CLIReader cli(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_SPEED, highscore_path);
+    CLIReader cli(DEFAULT_SIZE, DEFAULT_SPEED, highscore_path);
     cli.analyse_arguments(argc, argv);
     if (!cli.game_should_start())
         return 0;
@@ -27,19 +26,18 @@ int main(int argc, char *argv[]) {
     renderer.initialize();
 
     // Viewport Size check
-    while(cli.get_board_w() + 3 > renderer.get_viewport_width() ||
-          cli.get_board_h() + 4 > renderer.get_viewport_height()) {
-        renderer.terminate();
-        std::cout<<"Error! Game board is too big. Please resize the board or the viewport!\n";
-        return 0;
-    }
+    // while(cli.get_board_size() + uvec2(3,4) > renderer.get_viewport_size()) {
+    //     renderer.terminate();
+    //     std::cout<<"Error! Game board is too big. Please resize the board or the viewport!\n";
+    //     return 0;
+    // }
 
     // InputManager Init
     InputManager input;
     input.start_fetching_thread();
 
     // Game Init
-    Board board(cli.get_board_w(), cli.get_board_h());
+    Board board(cli.get_board_size());
     Game game(board, State());
     game.get_state().set_speed(cli.get_speed_seconds());
     game.init_game(&input);

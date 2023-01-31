@@ -1,7 +1,6 @@
 #include "io/Renderer.h"
 #include <ncurses.h>
 #include <stdexcept>
-#include "Renderer.h"
 
 void Renderer::initialize() {
     initscr();  // lib init
@@ -13,48 +12,24 @@ void Renderer::initialize() {
     
     move(0,0);
 }
+
 void Renderer::terminate() {
     endwin();
 }
 
-/* unsigned Renderer::get_viewport_width() {
-    unsigned w, h;
-    getmaxyx(stdscr, h, w);
-    return w;
-}
-unsigned Renderer::get_viewport_height() {
-    unsigned w, h;
-    getmaxyx(stdscr, h, w);
-    return h;
-} */
-
-/* unsigned Renderer::get_x() {
-    int currx, curry;
-    getyx(stdscr, curry, currx);
-    return currx;
-}
-
-unsigned Renderer::get_y() {
-    int currx, curry;
-    getyx(stdscr, curry, currx);
-    return curry;
-} */
-
-uvec2 Renderer::get_viewport_pos()
-{
+uvec2 Renderer::get_viewport_size() {
     uvec2 pos;
-    getmaxyx(stdscr, pos);
+    getmaxyx(stdscr, pos.y, pos.x);
     return pos;
 }
 
-uvec2 Renderer::get_pos()
-{
-    vec2 curr_pos;
-    getyx(stdscr, curr_pos);
+uvec2 Renderer::get_pos() {
+    uvec2 curr_pos;
+    getyx(stdscr, curr_pos.y, curr_pos.x);
     return curr_pos;
 }
-void Renderer::refresh_screen()
-{
+
+void Renderer::refresh_screen() {
     refresh();
 }
 
@@ -62,20 +37,16 @@ void Renderer::clear_screen() {
     erase();
 }
 
-void Renderer::move_cursor(uvec2 pos/* unsigned x, unsigned y */) {
-    //unsigned w, h;
-    uvec2 size;
-    getmaxyx(stdscr, size);
+void Renderer::move_cursor(uvec2 pos) {
+    uvec2 size = get_viewport_size();
     if (pos >= size)
         throw std::runtime_error("Cursor out of bounds!");
-    move(pos);
+    move(pos.y, pos.x);
 }
 
-void Renderer::move_relative(vec2 pos/* int x, int y */) {
-    //int currx, curry;
-    vec2 curr_pos;
-    getyx(stdscr, curr_pos);
-    move_cursor(curr_pos + pos);
+void Renderer::move_relative(vec2 pos) {
+    uvec2 curr_pos = get_pos();
+    move_cursor(uvec2(curr_pos.x + pos.x, curr_pos.y + pos.y));
 }
 
 void Renderer::write(char ch) {

@@ -6,7 +6,7 @@ class Body : public Entity {
     std::shared_ptr<Body> next;
 
 public:
-    Body(unsigned x, unsigned y);
+    Body(uvec2 pos);
 
     void render(Renderer& renderer) override;
 
@@ -14,7 +14,7 @@ public:
     std::shared_ptr<Body> get_next();
     bool is_tail();
 
-    bool is_at_recursive(unsigned x, unsigned y);
+    bool is_at_recursive(uvec2 pos);
     Body* get_tail_recursive();
-    void move_recursive(unsigned x, unsigned y);
+    void move_recursive(uvec2 pos);
 };

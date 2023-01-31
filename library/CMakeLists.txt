@@ -12,6 +12,7 @@ set(SOURCE_FILES
         include/game/Board.h
         include/game/Game.h
         include/game/State.h
+        include/game/Vector.h
         
         include/io/CLIReader.h
         include/io/FileIO.h

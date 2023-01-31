@@ -7,18 +7,18 @@
 
 #include <iostream>
 
-Head::Head(unsigned x, unsigned y, Game* g)
- : Body(x, y), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
+Head::Head(uvec2 pos, Game* g)
+ : Body(pos), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
 
 void Head::update(InputManager* input) {
     if (game->get_state().should_move()) {
-        auto x = get_x(), y = get_y();
+        auto pos = get_pos();
 
         switch (new_arrow) {
-            case K_UP:    move_recursive(x, y-1); break;
-            case K_DOWN:  move_recursive(x, y+1); break;
-            case K_LEFT:  move_recursive(x-1, y); break;
-            case K_RIGHT: move_recursive(x+1, y); break;
+            case K_UP:    move_recursive(pos + uvec2( 0, -1 )); break;
+            case K_DOWN:  move_recursive(pos + uvec2( 0, 1 )); break;
+            case K_LEFT:  move_recursive(pos + uvec2(-1, 0 )); break;
+            case K_RIGHT: move_recursive(pos + uvec2( 1, 0 )); break;
         }
 
         last_arrow = new_arrow;
@@ -30,24 +30,21 @@ void Head::render(Renderer& r) {
     r.write('%');
 }
 
-void Head::move_recursive(unsigned x, unsigned y) {
-    auto old_tail_x = get_tail_recursive()->get_x(),
-        old_tail_y = get_tail_recursive()->get_y();
+void Head::move_recursive(uvec2 pos) {
+    auto old_tail = get_tail_recursive()->get_pos();
     
-    Body::move_recursive(x, y);
-    
-    auto food = game->get_food();
+    Body::move_recursive(pos);
 
-    if (food->get_x() == x && food->get_y() == y) {
-        auto new_tail = std::make_shared<Body>(old_tail_x, old_tail_y);
+    if (game->get_food()->get_pos() == pos) {
+        auto new_tail = std::make_shared<Body>(old_tail);
         get_tail_recursive()->attach(new_tail);
         game->attach_entity(new_tail);
         game->move_food();
         game->get_state().increment_score();
     }
 
-    auto now_x = get_x(), now_y = get_y();
-    if (!is_tail() && get_next()->is_at_recursive(now_x, now_y))
+    auto now_pos = get_pos();
+    if (!is_tail() && get_next()->is_at_recursive(now_pos))
         game->get_state().finish_game();
     
 }

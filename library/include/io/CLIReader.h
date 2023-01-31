@@ -2,22 +2,22 @@
 #include <map>
 #include <functional>
 #include <string>
+#include "game/Vector.h"
 
 class CLIReader {
     bool should_start;
-    unsigned board_w;
-    unsigned board_h;
+
+    uvec2 board_size;
     float speed_seconds;
     std::string highscore_path;
 
     std::map<std::string, std::function<int(CLIReader* reader, std::string value)>> argument_readers;
 
 public:
-    CLIReader(unsigned default_width, unsigned default_height, float default_speed, std::string highscore_path);
+    CLIReader(uvec2 default_size, float default_speed, std::string highscore_path);
     void analyse_arguments(int argc, char *argv[]);
 
     bool game_should_start();
-    unsigned get_board_w();
-    unsigned get_board_h();
+    uvec2 get_board_size();
     float get_speed_seconds();
 };

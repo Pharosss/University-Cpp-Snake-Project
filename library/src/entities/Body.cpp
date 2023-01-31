@@ -1,8 +1,8 @@
 #include "entities/Body.h"
 #include "io/Renderer.h"
 
-Body::Body(unsigned x, unsigned y)
-    : Entity(x, y), next(nullptr) {}
+Body::Body(uvec2 pos)
+    : Entity(pos), next(nullptr) {}
 
 void Body::render(Renderer& r) {
     r.write('&');
@@ -20,12 +20,12 @@ bool Body::is_tail() {
     return !next;
 }
 
-bool Body::is_at_recursive(unsigned posx, unsigned posy) {
-    if (get_x() == posx && get_y() == posy)
+bool Body::is_at_recursive(uvec2 pos) {
+    if (get_pos() == pos)
         return true;
 
     if (!is_tail())
-        return next->is_at_recursive(posx, posy);
+        return next->is_at_recursive(pos);
 
     return false;
 }
@@ -37,10 +37,9 @@ Body* Body::get_tail_recursive() {
         return next->get_tail_recursive();
 }
 
-void Body::move_recursive(unsigned x, unsigned y) {
-    auto new_x = get_x(),
-        new_y = get_y();
-    move(x, y);
+void Body::move_recursive(uvec2 pos) {
+    auto new_pos = get_pos();
+    move(pos);
     if (!is_tail())
-        next->move_recursive(new_x, new_y);
+        next->move_recursive(new_pos);
 }

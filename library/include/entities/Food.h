@@ -3,7 +3,7 @@
 
 class Food : public Entity {
 public:
-    Food(unsigned x, unsigned y);
+    Food(uvec2 pos);
     
     void render(Renderer& renderer);
 };

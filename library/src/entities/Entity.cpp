@@ -1,5 +1,4 @@
 #include "entities/Entity.h"
-#include "Entity.h"
 
 Entity::Entity(uvec2 pos)
  : pos(pos) {}
@@ -7,23 +6,15 @@ Entity::Entity(uvec2 pos)
 void Entity::update(InputManager* input) {
     // intentionally left blank
 }
+
 void Entity::render(Renderer& renderer) {
     // intentionally left blank
 }
 
 void Entity::move(uvec2 pos) {
-    this->pos=pos;
-    //this->x = x; this->y = y;
+    this->pos = pos;
 }
-uvec2 Entity::get_pos()
-{
+
+uvec2 Entity::get_pos() {
     return pos;
 }
-
-/* unsigned Entity::get_x() {
-    return x;
-}
-
-unsigned Entity::get_y() {
-    return y;
-} */
