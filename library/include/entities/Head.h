@@ -11,7 +11,7 @@ public:
     Head(uvec2 pos, Game* g);
 
     void update(InputManager* input) override;
-    void render(Renderer& r) override;
+    void render(Renderer* renderer) override;
 
     void move_recursive(uvec2 pos);
 

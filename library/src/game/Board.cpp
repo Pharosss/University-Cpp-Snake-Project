@@ -5,22 +5,22 @@
 Board::Board(uvec2 pos)
 : size(pos){}
 
-void Board::render(Renderer& r) {
+void Board::render(Renderer* r) {
     for (size_t i = 0; i < size.x + 2; i++) {
-        r.write('#');
+        r->write('#');
     }
     
-    r.move_relative(vec2(-size.x - 2, 1));
+    r->move_relative(vec2(-size.x - 2, 1));
     
     for (size_t j = 0; j < size.y; j++) {
-        r.write('#');
-        r.move_relative(vec2(size.x, 0));
-        r.write('#');
-        r.move_relative(vec2(-size.x - 2, 1));
+        r->write('#');
+        r->move_relative(vec2(size.x, 0));
+        r->write('#');
+        r->move_relative(vec2(-size.x - 2, 1));
     }
 
     for (size_t i = 0; i < size.x + 2; i++) {
-        r.write('#');
+        r->write('#');
     }
 }
 

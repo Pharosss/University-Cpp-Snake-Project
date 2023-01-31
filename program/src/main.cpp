@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     // Game Loop
     while (!(game.get_state().is_finished())) {
         game.update(&input);
-        game.render(renderer);
+        game.render(&renderer);
     }
     
     // End Game

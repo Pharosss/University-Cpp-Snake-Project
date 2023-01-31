@@ -26,8 +26,8 @@ void Head::update(InputManager* input) {
     }
 }
 
-void Head::render(Renderer& r) {
-    r.write('%');
+void Head::render(Renderer* renderer) {
+    renderer->write('%');
 }
 
 void Head::move_recursive(uvec2 pos) {

@@ -5,5 +5,5 @@ class Food : public Entity {
 public:
     Food(uvec2 pos);
     
-    void render(Renderer& renderer);
+    void render(Renderer* renderer);
 };

@@ -45,27 +45,27 @@ void Game::update(InputManager* input) {
     entities[1]->update(input);
 }
 
-void Game::render(Renderer& r) {
-    r.clear_screen();
+void Game::render(Renderer* r) {
+    r->clear_screen();
 
     std::stringstream header;
     header << "Score: " << std::to_string(state.get_score());
     std::string out = header.str();
     
-    auto corner = (r.get_viewport_size() - board.get_size() - uvec2(0,2)) / 2 - uvec2(1, 1);
+    auto corner = (r->get_viewport_size() - board.get_size() - uvec2(0,2)) / 2 - uvec2(1, 1);
 
-    r.move_cursor(corner);
-    r.write(out);
+    r->move_cursor(corner);
+    r->write(out);
 
-    r.move_cursor(corner + uvec2(0,2));
-    uvec2 inside_board = r.get_pos() + uvec2(1,1);
+    r->move_cursor(corner + uvec2(0,2));
+    uvec2 inside_board = r->get_pos() + uvec2(1,1);
     board.render(r);
 
     for(auto entity : entities) {
-        r.move_cursor(inside_board + entity->get_pos());
+        r->move_cursor(inside_board + entity->get_pos());
         entity->render(r);
     }
-    r.refresh_screen();
+    r->refresh_screen();
 }
 
 //Entity List

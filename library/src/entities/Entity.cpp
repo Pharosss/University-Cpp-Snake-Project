@@ -7,7 +7,7 @@ void Entity::update(InputManager* input) {
     // intentionally left blank
 }
 
-void Entity::render(Renderer& renderer) {
+void Entity::render(Renderer* renderer) {
     // intentionally left blank
 }
 

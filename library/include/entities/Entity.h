@@ -14,7 +14,7 @@ public:
     Entity(uvec2 pos);
 
     virtual void update(InputManager* input);
-    virtual void render(Renderer& renderer);
+    virtual void render(Renderer* renderer);
 
     void move(uvec2 pos);
     uvec2 get_pos();

@@ -4,6 +4,6 @@
 Food::Food(uvec2 pos)
  : Entity(pos) {}
 
-void Food::render(Renderer& r) {
-    r.write('@');
+void Food::render(Renderer* renderer) {
+    renderer->write('@');
 }

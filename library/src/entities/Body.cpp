@@ -4,8 +4,8 @@
 Body::Body(uvec2 pos)
     : Entity(pos), next(nullptr) {}
 
-void Body::render(Renderer& r) {
-    r.write('&');
+void Body::render(Renderer* renderer) {
+    renderer->write('&');
 }
 
 void Body::attach(std::shared_ptr<Body> next) {

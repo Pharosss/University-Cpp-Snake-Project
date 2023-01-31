@@ -8,7 +8,7 @@ class Body : public Entity {
 public:
     Body(uvec2 pos);
 
-    void render(Renderer& renderer) override;
+    void render(Renderer* renderer) override;
 
     void attach(std::shared_ptr<Body> next);
     std::shared_ptr<Body> get_next();
