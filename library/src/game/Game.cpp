@@ -14,8 +14,8 @@
 
 // Input Callback
 
-void Game::on_keepress(KeyCode code) {
-    if (code == K_RETURN)
+void Game::on_action(ActionCode code) {
+    if (code == A_RETURN)
         state.finish_game();
 }
 

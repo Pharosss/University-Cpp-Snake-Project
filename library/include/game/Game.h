@@ -19,8 +19,8 @@ class Game : public InputObserver {
     State state;
     std::vector<std::shared_ptr<Entity>> entities;
 
-    void on_keepress(KeyCode code) override;
-    
+    void on_action(ActionCode code) override;
+
 public:
     Game(Board b, State s);
 

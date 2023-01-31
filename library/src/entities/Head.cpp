@@ -7,31 +7,31 @@
 
 #include <iostream>
 
-void Head::on_keepress(KeyCode code) {
-    if (code < K_UP || code > K_RIGHT)
+void Head::on_action(ActionCode code) {
+    if (code < A_UP || code > A_RIGHT)
         return;
 
-    if (last_arrow == K_UP && code == K_DOWN ||
-        last_arrow == K_DOWN && code == K_UP ||
-        last_arrow == K_LEFT && code == K_RIGHT ||
-        last_arrow == K_RIGHT && code == K_LEFT)
+    if (last_arrow == A_UP && code == A_DOWN ||
+        last_arrow == A_DOWN && code == A_UP ||
+        last_arrow == A_LEFT && code == A_RIGHT ||
+        last_arrow == A_RIGHT && code == A_LEFT)
         return;
 
     new_arrow = code;
 }
 
 Head::Head(uvec2 pos, Game* g)
- : Body(pos), game(g), last_arrow(K_NULL), new_arrow(K_NULL) {}
+ : Body(pos), game(g), last_arrow(A_NULL), new_arrow(A_NULL) {}
 
 void Head::update(InputManager* input) {
     if (game->get_state().should_move()) {
         auto pos = get_pos();
 
         switch (new_arrow) {
-            case K_UP:    move_recursive(pos + uvec2( 0, -1 )); break;
-            case K_DOWN:  move_recursive(pos + uvec2( 0, 1 )); break;
-            case K_LEFT:  move_recursive(pos + uvec2(-1, 0 )); break;
-            case K_RIGHT: move_recursive(pos + uvec2( 1, 0 )); break;
+            case A_UP:    move_recursive(pos + uvec2( 0, -1 )); break;
+            case A_DOWN:  move_recursive(pos + uvec2( 0, 1 )); break;
+            case A_LEFT:  move_recursive(pos + uvec2(-1, 0 )); break;
+            case A_RIGHT: move_recursive(pos + uvec2( 1, 0 )); break;
         }
 
         last_arrow = new_arrow;

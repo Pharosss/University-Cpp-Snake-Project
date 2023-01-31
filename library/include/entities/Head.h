@@ -5,9 +5,9 @@ class Game;
 
 class Head : public Body {
     Game* game;
-    KeyCode last_arrow, new_arrow;
+    ActionCode last_arrow, new_arrow;
     
-    void on_keepress(KeyCode code) override;
+    void on_action(ActionCode code) override;
     
 public:
     Head(uvec2 pos, Game* g);

@@ -2,12 +2,12 @@
 
 class InputManager;
 
-enum KeyCode : char {
-    K_NULL, K_UP, K_DOWN, K_LEFT, K_RIGHT, K_RETURN
+enum ActionCode : char {
+    A_NULL, A_UP, A_DOWN, A_LEFT, A_RIGHT, A_RETURN
 };
 
 class InputObserver {
     friend class InputManager;
 
-    virtual void on_keepress(KeyCode code) {};
+    virtual void on_action(ActionCode code) {};
 };

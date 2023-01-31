@@ -4,13 +4,13 @@
 #include "io/InputManager.h"
 #include "io/Input.h"
 
-void InputManager::notify_observers(KeyCode code) {
+void InputManager::notify_observers(ActionCode code) {
     for (auto obs : observers)
-        obs->on_keepress(code);
+        obs->on_action(code);
 }
 
 InputManager::InputManager()
-    : input_fetching_thread(nullptr), should_run(true), current_input(K_NULL) {}
+    : input_fetching_thread(nullptr), should_run(true), current_input(A_NULL) {}
 
 // W = 119 87 K_UP
 // S = 115 83 K_DOWN
@@ -26,30 +26,30 @@ void InputManager::start_fetching_thread() {
             int ch = getchar();
             switch (ch) {
                 case 9:
-                    i->current_input = K_RETURN;
+                    i->current_input = A_RETURN;
                     break;
                 case 119:
                 case 87:
-                    i->current_input = K_UP;
+                    i->current_input = A_UP;
                     break;
                 case 115:
                 case 83:
-                    i->current_input = K_DOWN;
+                    i->current_input = A_DOWN;
                     break;
                 case 97:
                 case 65:
-                    i->current_input = K_LEFT;
+                    i->current_input = A_LEFT;
                     break;
                 case 100:
                 case 68:
-                    i->current_input = K_RIGHT;
+                    i->current_input = A_RIGHT;
                     break;
                 default:
-                    i->current_input = K_NULL;
+                    i->current_input = A_NULL;
                     break;
             }
 
-            if (i->current_input != K_NULL)
+            if (i->current_input != A_NULL)
                 i->notify_observers(i->current_input);
         }
     };

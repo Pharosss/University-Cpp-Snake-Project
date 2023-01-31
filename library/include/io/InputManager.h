@@ -3,17 +3,17 @@
 #include <thread>
 #include <memory>
 
-enum KeyCode : char;
+enum ActionCode : char;
 class InputObserver;
 
 class InputManager {
     bool should_run;
-    KeyCode current_input;
+    ActionCode current_input;
 
     std::shared_ptr<std::thread> input_fetching_thread;
 
     std::vector<InputObserver*> observers;
-    void notify_observers(KeyCode code);
+    void notify_observers(ActionCode code);
 
 public:
     InputManager();
