@@ -14,7 +14,7 @@ sudo apt-get install libboost-all-dev
 sudo apt-get install libncurses5-dev libncursesw5-dev
 ```
 
-There may additionally be a need to install clib's pthreads library: 
+There may additionally be a need to install glibc's pthreads library: 
 ```
 sudo apt-get install libpthread-stubs0-dev
 ```
