@@ -29,17 +29,17 @@ struct Vector2 {
     bool operator>(Vector2<T> other) {
         return (this->x > other.x || this->y > other.y);
     }
-
-    bool operator>=(Vector2<T> other) {
-        return (this->x >= other.x || this->y >= other.y);
+    
+    bool operator<(Vector2<T> other) {
+        return (this->x < other.x && this->y < other.y);
     }
 
-    bool operator<(Vector2<T> other) {
-        return (this->x < other.x || this->y < other.y);
+    bool operator>=(Vector2<T> other) {
+        return !(this->x < other.x && this->y < other.y);
     }
 
     bool operator<=(Vector2<T> other) {
-        return (this->x <= other.x || this->y <= other.y);
+        return !(this->x > other.x || this->y > other.y);    
     }
 
     // OTHER UTILS

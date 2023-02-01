@@ -25,7 +25,7 @@ void Board::render(Renderer* r) {
 }
 
 bool Board::is_position_valid(uvec2 pos) {
-    return (pos.x<size.x && pos.y<size.y);
+    return pos < size;
 }
 
 uvec2 Board::get_size() {

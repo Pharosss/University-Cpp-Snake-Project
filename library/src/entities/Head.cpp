@@ -24,19 +24,20 @@ Head::Head(uvec2 pos, Game* g)
  : Body(pos), game(g), last_arrow(A_NULL), new_arrow(A_NULL) {}
 
 void Head::update(InputManager* input) {
-    if (game->get_state().should_move()) {
-        auto pos = get_pos();
+    if (!game->get_state().should_move())
+        return;
+    
+    auto pos = get_pos();
 
-        switch (new_arrow) {
-            case A_UP:    move_recursive(pos + uvec2( 0, -1 )); break;
-            case A_DOWN:  move_recursive(pos + uvec2( 0, 1 )); break;
-            case A_LEFT:  move_recursive(pos + uvec2(-1, 0 )); break;
-            case A_RIGHT: move_recursive(pos + uvec2( 1, 0 )); break;
-        }
-
-        last_arrow = new_arrow;
-        game->get_state().set_should_move(false);
+    switch (new_arrow) {
+        case A_UP:    move_recursive(pos + uvec2( 0,-1 )); break;
+        case A_DOWN:  move_recursive(pos + uvec2( 0, 1 )); break;
+        case A_LEFT:  move_recursive(pos + uvec2(-1, 0 )); break;
+        case A_RIGHT: move_recursive(pos + uvec2( 1, 0 )); break;
     }
+
+    last_arrow = new_arrow;
+    game->get_state().set_should_move(false);
 }
 
 void Head::render(Renderer* renderer) {
