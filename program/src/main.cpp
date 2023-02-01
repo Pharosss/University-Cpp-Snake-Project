@@ -26,11 +26,18 @@ int main(int argc, char *argv[]) {
     renderer.initialize();
 
     // Viewport Size check
-    // while(cli.get_board_size() + uvec2(3,4) > renderer.get_viewport_size()) {
-    //     renderer.terminate();
-    //     std::cout<<"Error! Game board is too big. Please resize the board or the viewport!\n";
-    //     return 0;
-    // }
+    uvec2 board_s = cli.get_board_size();
+    if(board_s + uvec2(3,4) > renderer.get_viewport_size()) {
+        renderer.terminate();
+        std::cout<<"Error! Game board is too big. Please choose a smaller size.\n";
+        return 0;
+    }
+
+    if(board_s.x < 9 || board_s.y < 3) {
+        renderer.terminate();
+        std::cout<<"Error! Game board is too small. Please choose a bigger size.\n";
+        return 0;
+    }
 
     // InputManager Init
     InputManager input;

@@ -26,7 +26,7 @@ void Game::init_game(InputManager* input) {
     std::srand(std::time(0));
     input->add_observer(this);
 
-    std::shared_ptr<Head> head = std::make_shared<Head>(uvec2(4, 3), this);
+    auto head = std::make_shared<Head>(get_board().get_size() / 2 - uvec2(1,1), this);
     input->add_observer(head.get());
     attach_entity(head);
 
