@@ -24,7 +24,7 @@ Head::Head(uvec2 pos, Game* g)
  : Body(pos), game(g), last_arrow(A_NULL), new_arrow(A_NULL) {}
 
 void Head::update(InputManager* input) {
-    if (!game->get_state().should_move())
+    if (!game->get_state().get_flag(SHOULD_MOVE))
         return;
     
     auto pos = get_pos();
@@ -37,7 +37,7 @@ void Head::update(InputManager* input) {
     }
 
     last_arrow = new_arrow;
-    game->get_state().set_should_move(false);
+    game->get_state().set_flag(SHOULD_MOVE, false);
 }
 
 void Head::render(Renderer* renderer) {
@@ -59,6 +59,6 @@ void Head::move_recursive(uvec2 pos) {
 
     auto now_pos = get_pos();
     if (!is_tail() && get_next()->is_at_recursive(now_pos))
-        game->get_state().finish_game();
+        game->get_state().set_flag(IS_FINISHED, true);
     
 }

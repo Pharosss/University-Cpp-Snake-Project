@@ -16,7 +16,7 @@
 
 void Game::on_action(ActionCode code) {
     if (code == A_RETURN)
-        state.finish_game();
+        state.set_flag(IS_FINISHED, true);
 }
 
 Game::Game(Board b, State s)
@@ -39,7 +39,7 @@ void Game::init_game(InputManager* input) {
 
 void Game::update(InputManager* input) {
     if (!board.is_position_valid(entities[0]->get_pos()) )
-        state.finish_game();
+        state.set_flag(IS_FINISHED, true);
 
     entities[0]->update(input);
     entities[1]->update(input);

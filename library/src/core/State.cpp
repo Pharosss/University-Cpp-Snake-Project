@@ -1,8 +1,10 @@
 #include "core/State.h"
 #include <stdexcept>
 
-State::State() : score(0), speed_seconds(0.15f),
-    m_is_finished(false), m_should_move(false) {}
+State::State() : score(0), speed_seconds(0.15f) {
+    flags.insert({IS_FINISHED, false});
+    flags.insert({SHOULD_MOVE, false});
+}
 
 // Score
 
@@ -26,22 +28,12 @@ float State::set_speed(float seconds) {
     speed_seconds = seconds;
 }
 
-// Is Finished?
+// flags
 
-bool State::is_finished() {
-    return m_is_finished;
+bool State::get_flag(FlagName flag_name) {
+    return flags[flag_name];
 }
 
-void State::finish_game() {
-    m_is_finished = true;
-}
-
-// Should Move?
-
-bool State::should_move() {
-    return m_should_move;
-}
-
-void State::set_should_move(bool should) {
-    m_should_move = should;
+bool State::set_flag(FlagName flag_name, bool value) {
+    flags[flag_name] = value;
 }

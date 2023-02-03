@@ -22,17 +22,20 @@ BOOST_AUTO_TEST_CASE(Test_get_speed__set_speed) {
 
 BOOST_AUTO_TEST_CASE(Test_should_move) {
     State s;
-    BOOST_CHECK_EQUAL(s.should_move(), false);
-    s.set_should_move(true);
-    BOOST_CHECK_EQUAL(s.should_move(), true);
-    s.set_should_move(false);
-    BOOST_CHECK_EQUAL(s.should_move(), false);
+    BOOST_CHECK_EQUAL(s.get_flag(SHOULD_MOVE), false);
+
+    s.set_flag(SHOULD_MOVE, true);
+    BOOST_CHECK_EQUAL(s.get_flag(SHOULD_MOVE), true);
+
+    s.set_flag(SHOULD_MOVE, false);
+    BOOST_CHECK_EQUAL(s.get_flag(SHOULD_MOVE), false);
     }
 
 BOOST_AUTO_TEST_CASE(Test_finish_game__is_finished) {
     State s;
-    BOOST_CHECK_EQUAL(s.is_finished(), false);
-    s.finish_game();
-    BOOST_CHECK_EQUAL(s.is_finished(), true);
+    BOOST_CHECK_EQUAL(s.get_flag(IS_FINISHED), false);
+
+    s.set_flag(IS_FINISHED, true);
+    BOOST_CHECK_EQUAL(s.get_flag(IS_FINISHED), true);
     }
 BOOST_AUTO_TEST_SUITE_END()

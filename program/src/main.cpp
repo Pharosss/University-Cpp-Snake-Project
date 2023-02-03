@@ -51,17 +51,17 @@ int main(int argc, char *argv[]) {
 
     // Timer Init
     auto timer_lambda = [](State* state) {
-        while (!state->is_finished()) {
+        while (!state->get_flag(IS_FINISHED)) {
             unsigned delta = state->get_speed() * 1000;
             std::this_thread::sleep_for(std::chrono::milliseconds(delta));
-            state->set_should_move(true);
+            state->set_flag(SHOULD_MOVE, true);
         }
     };
     std::thread timer_thread(timer_lambda, &game.get_state());
     timer_thread.detach();
 
     // Game Loop
-    while (!(game.get_state().is_finished())) {
+    while (!(game.get_state().get_flag(IS_FINISHED))) {
         game.update(&input);
         game.render(&renderer);
     }
