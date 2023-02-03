@@ -3,7 +3,7 @@
 #include <map>
 
 enum FlagName {
-    IS_FINISHED, SHOULD_MOVE
+    IS_FINISHED, SHOULD_MOVE, PAUSED
 };
 
 class State {

@@ -12,11 +12,12 @@ void InputManager::notify_observers(ActionCode code) {
 InputManager::InputManager()
     : input_fetching_thread(nullptr), should_run(true), current_input(A_NULL) {}
 
-// W = 119 87 K_UP
-// S = 115 83 K_DOWN
-// A = 97  65 K_LEFT
-// D = 100 68 K_RIGHT
-// Tab = 9
+// W = 119 87 A_UP
+// S = 115 83 A_DOWN
+// A = 97  65 A_LEFT
+// D = 100 68 A_RIGHT
+// Tab = 9    A_RETURN
+// Space = 32 A_PAUSE
 
 // THREADS
 
@@ -27,6 +28,9 @@ void InputManager::start_fetching_thread() {
             switch (ch) {
                 case 9:
                     i->current_input = A_RETURN;
+                    break;
+                case 32:
+                    i->current_input = A_PAUSE;
                     break;
                 case 119:
                 case 87:

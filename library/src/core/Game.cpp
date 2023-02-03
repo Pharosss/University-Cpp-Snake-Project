@@ -17,6 +17,9 @@
 void Game::on_action(ActionCode code) {
     if (code == A_RETURN)
         state.set_flag(IS_FINISHED, true);
+    
+    if (code == A_PAUSE)
+        state.set_flag(PAUSED, !state.get_flag(PAUSED));
 }
 
 Game::Game(Board b, State s)
@@ -40,6 +43,9 @@ void Game::init_game(InputManager* input) {
 void Game::update(InputManager* input) {
     if (!board.is_position_valid(entities[0]->get_pos()) )
         state.set_flag(IS_FINISHED, true);
+    
+    if (state.get_flag(PAUSED))
+        return;
 
     entities[0]->update(input);
     entities[1]->update(input);

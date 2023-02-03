@@ -52,6 +52,9 @@ int main(int argc, char *argv[]) {
     // Timer Init
     auto timer_lambda = [](State* state) {
         while (!state->get_flag(IS_FINISHED)) {
+            if (state->get_flag(PAUSED))
+                continue;
+            
             unsigned delta = state->get_speed() * 1000;
             std::this_thread::sleep_for(std::chrono::milliseconds(delta));
             state->set_flag(SHOULD_MOVE, true);

@@ -4,6 +4,7 @@
 State::State() : score(0), speed_seconds(0.15f) {
     flags.insert({IS_FINISHED, false});
     flags.insert({SHOULD_MOVE, false});
+    flags.insert({PAUSED, false});
 }
 
 // Score

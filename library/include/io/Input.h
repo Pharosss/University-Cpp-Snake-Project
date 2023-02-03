@@ -3,7 +3,7 @@
 class InputManager;
 
 enum ActionCode : char {
-    A_NULL, A_UP, A_DOWN, A_LEFT, A_RIGHT, A_RETURN
+    A_NULL, A_UP, A_DOWN, A_LEFT, A_RIGHT, A_RETURN, A_PAUSE
 };
 
 class InputObserver {
