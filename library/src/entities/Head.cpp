@@ -8,6 +8,9 @@
 #include <iostream>
 
 void Head::on_action(ActionCode code) {
+    if (game->get_state().get_flag(PAUSED))
+        return;
+    
     if (code < A_UP || code > A_RIGHT)
         return;
 
@@ -61,4 +64,8 @@ void Head::move_recursive(uvec2 pos) {
     if (!is_tail() && get_next()->is_at_recursive(now_pos))
         game->get_state().set_flag(IS_FINISHED, true);
     
+}
+
+ActionCode Head::get_current_direction() {
+    return new_arrow;
 }

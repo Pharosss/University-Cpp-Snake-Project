@@ -55,7 +55,26 @@ void Game::render(Renderer* r) {
     r->clear_screen();
 
     std::stringstream header;
-    header << "Score: " << std::to_string(state.get_score());
+    header << "SCORE: " << std::to_string(state.get_score());
+    if (state.get_flag(PAUSED)) {
+        auto dir = get_head()->get_current_direction();
+        header << " PAUSED ";
+        switch (dir)
+        {
+        case A_UP:
+            header << "[UP]";
+            break;
+        case A_DOWN:
+            header << "[DOWN]";
+            break;
+        case A_LEFT:
+            header << "[LEFT]";
+            break;
+        case A_RIGHT:
+            header << "[RIGHT]";
+            break;
+        }
+    }
     std::string out = header.str();
     
     auto corner = (r->get_viewport_size() - board.get_size() - uvec2(0,2)) / 2 - uvec2(1, 1);

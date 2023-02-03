@@ -17,4 +17,5 @@ public:
 
     void move_recursive(uvec2 pos);
 
+    ActionCode get_current_direction();
 };
