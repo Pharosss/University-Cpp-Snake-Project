@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "game/Vector.h"
+#include "core/Vector.h"
 
 class Renderer {
 public:

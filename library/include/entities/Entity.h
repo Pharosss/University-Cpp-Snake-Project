@@ -1,7 +1,7 @@
 #pragma once
 
 #include "io/Input.h"
-#include "game/Vector.h"
+#include "core/Vector.h"
 
 class Renderer;
 class InputManager;

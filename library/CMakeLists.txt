@@ -4,15 +4,15 @@ project(Library)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(SOURCE_FILES
+        include/core/Board.h
+        include/core/Game.h
+        include/core/State.h
+        include/core/Vector.h
+
         include/entities/Body.h
         include/entities/Entity.h
         include/entities/Food.h
         include/entities/Head.h
-
-        include/game/Board.h
-        include/game/Game.h
-        include/game/State.h
-        include/game/Vector.h
         
         include/io/CLIReader.h
         include/io/FileIO.h
@@ -20,14 +20,14 @@ set(SOURCE_FILES
         include/io/InputManager.h
         include/io/Renderer.h
 
+        src/core/Board.cpp
+        src/core/Game.cpp
+        src/core/State.cpp
+
         src/entities/Body.cpp
         src/entities/Entity.cpp
         src/entities/Food.cpp
         src/entities/Head.cpp
-
-        src/game/Board.cpp
-        src/game/Game.cpp
-        src/game/State.cpp
         
         src/io/CLIReader.cpp
         src/io/FileIO.cpp

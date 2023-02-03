@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "game/Board.h" 
+#include "core/Board.h" 
 BOOST_AUTO_TEST_SUITE(BoardTest)
 
 BOOST_AUTO_TEST_CASE(Test_position_valid) {

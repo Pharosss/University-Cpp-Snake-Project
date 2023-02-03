@@ -1,7 +1,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "game/Game.h"
+#include "core/Game.h"
 
 #include "io/Renderer.h"
 #include "io/InputManager.h"

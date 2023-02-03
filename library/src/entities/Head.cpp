@@ -1,7 +1,7 @@
 #include "entities/Head.h"
 #include "io/Renderer.h"
 
-#include "game/Game.h"
+#include "core/Game.h"
 #include "entities/Food.h"
 #include "io/InputManager.h"
 

@@ -1,6 +1,6 @@
-#include "game/Board.h"
+#include "core/Board.h"
 #include "io/Renderer.h"
-#include "game/Board.h"
+#include "core/Board.h"
 
 Board::Board(uvec2 pos)
 : size(pos){}

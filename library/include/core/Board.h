@@ -1,6 +1,6 @@
 #pragma once
 class Renderer;
-#include "game/Vector.h"
+#include "core/Vector.h"
 
 class Board {
     uvec2 size;

@@ -2,7 +2,7 @@
 #include <map>
 #include <functional>
 #include <string>
-#include "game/Vector.h"
+#include "core/Vector.h"
 
 class CLIReader {
     bool should_start;

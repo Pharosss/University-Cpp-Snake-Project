@@ -1,5 +1,5 @@
 #include <boost/test/unit_test.hpp>
-#include "game/Game.h"
+#include "core/Game.h"
 #include <vector>
 #include <memory>
 BOOST_AUTO_TEST_SUITE(GameTest)
