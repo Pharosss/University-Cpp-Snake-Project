@@ -23,7 +23,8 @@ CLIReader::CLIReader(uvec2 default_size, float default_speed, std::string highsc
 
     // -h / -help: help page
     argument_readers["-h"] = argument_readers["-help"] = [](CLIReader* reader, std::string value) {
-        std::cout<<"Terminal Snake Game made by Mateusz Kubiak and Gosia Komorowska\n"
+        std::cout<<"Terminal Snake Clone made by Mateusz Kubiak and Gosia Komorowska\n"
+        << "and further developed by Mateusz Kubiak\n"
         << "@ Lodz University of Technology\n"
         << '\n'
         << "Controls:\n"
