@@ -31,14 +31,18 @@ CLIReader::CLIReader(uvec2 default_size, float default_speed, std::string highsc
         << "WASD - change direction of the snake\n"
         << "Tab - exit the game\n"
         << '\n'
+        << "Highscore:\n"
+        << "Upon user confirmation, this game will save highscore in a text file ~/.terminal-snake.\n"
+        << '\n'
         << "Available options:\n"
         << "-b - change game board dimensions (pattern: 'UINTxUINT' i.e. '-b 40x20').\n"
         << "-d - change difficulty (e - easy, m - medium, h - hard).\n"
         << "-s - change time duration between snake moves (double seconds).\n"
         << '\n'
-        << "-H - show highscore. Does not run the game.\n"
-        << "-c - clear highscore. Does not run the game.\n"
-        << "-h (-help) - view this page. Does not run the game\n";
+        << "Options that do not run the game:\n"
+        << "-H - show highscore.\n"
+        << "-c - clear highscore.\n"
+        << "-h (-help) - view this page.\n";
         reader->should_start = false;
         return -1;
     };
